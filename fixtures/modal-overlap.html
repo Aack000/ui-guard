@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modal — background controls must not count as H5 overlaps</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  .bg { position: absolute; width: 160px; height: 44px; }
+  #bg-a { left: 20px; top: 20px; }
+  #bg-b { left: 60px; top: 20px; }
+  #open { position: absolute; left: 20px; top: 100px; width: 120px; height: 36px; }
+  dialog { position: fixed; top: 30px; left: 40px; width: 240px; padding: 16px; }
+  dialog .row { display: flex; gap: 8px; }
+  dialog button { width: 80px; height: 32px; }
+</style>
+</head>
+<body>
+<button id="bg-a" class="bg">背景 A</button>
+<button id="bg-b" class="bg">背景 B</button>
+<button id="open">打开弹窗</button>
+<dialog id="dlg" aria-modal="true">
+  <p>弹窗内容</p>
+  <div class="row"><button>取消</button><button>确定</button></div>
+</dialog>
+<script>
+  document.querySelector('#open').addEventListener('click', () => document.querySelector('#dlg').showModal());
+</script>
+</body>
+</html>

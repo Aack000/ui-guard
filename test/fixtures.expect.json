@@ -54,5 +54,11 @@
     "errorsAt": { "375": [] },
     "warns": ["P1"],
     "perf": true
+  },
+  "modal-overlap.html": {
+    "actions": [{ "type": "click", "selector": "#open" }],
+    "errorsAt": {
+      "375": { "baseline": ["H5"], "click:#open": [] }
+    }
   }
 }

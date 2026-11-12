@@ -251,7 +251,10 @@ export function measure() {
   }
 
   // ---- H5: interactive elements overlapping ----
-  const rects = interactive.map((el) => ({ el, r: el.getBoundingClientRect() }));
+  // Same modal exemption as H4: controls behind an open modal are inert, so
+  // their geometric overlap with the dialog is not a real collision.
+  const h5Targets = modal ? interactive.filter((el) => modal.contains(el)) : interactive;
+  const rects = h5Targets.map((el) => ({ el, r: el.getBoundingClientRect() }));
   for (let i = 0; i < rects.length; i++) {
     for (let j = i + 1; j < rects.length; j++) {
       const { el: a, r: ra } = rects[i];

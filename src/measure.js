@@ -111,15 +111,26 @@ export function measure() {
     const a = fg.a === undefined ? 1 : fg.a;
     return { r: fg.r * a + bg.r * (1 - a), g: fg.g * a + bg.g * (1 - a), b: fg.b * a + bg.b * (1 - a), a: 1 };
   }
-  /** 向上找第一个不透明纯色背景；遇到渐变/图片返回 null（无法可靠判断，跳过） */
-  function backgroundOf(el) {
+  /**
+   * 向上找可见背景：纯色返回单色；渐变返回所有不透明 stop 颜色（取最差对比度）；
+   * 图片或含半透明 stop 的渐变无法可靠合成，返回 null（跳过，避免误报）。
+   */
+  function backgroundsOf(el) {
     for (let n = el; n; n = n.parentElement) {
       const cs = getComputedStyle(n);
-      if (cs.backgroundImage !== 'none') return null;
+      const image = cs.backgroundImage;
+      if (image && image !== 'none') {
+        if (/url\(/i.test(image)) return null;
+        const stops = image.match(/rgba?\([^)]+\)/gi) || [];
+        if (stops.length === 0) return null;
+        const solid = stops.map(parseRgb).filter((c) => c && c.a >= 0.95);
+        if (solid.length !== stops.length) return null;
+        return solid;
+      }
       const c = parseRgb(cs.backgroundColor);
-      if (c && c.a >= 0.95) return c;
+      if (c && c.a >= 0.95) return [c];
     }
-    return { r: 255, g: 255, b: 255, a: 1 };
+    return [{ r: 255, g: 255, b: 255, a: 1 }];
   }
 
   // ---- H1: page-level horizontal overflow ----
@@ -300,16 +311,21 @@ export function measure() {
     const cs = getComputedStyle(el);
     if (parseFloat(cs.opacity) < 0.5) continue;
     const fg = parseRgb(cs.color);
-    const bg = backgroundOf(el);
-    if (!fg || !bg) continue;
-    const fg2 = fg.a < 1 ? blend(fg, bg) : fg;
-    const ratio = contrastRatio(fg2, bg);
+    const bgs = backgroundsOf(el);
+    if (!fg || !bgs) continue;
+    const fg2 = fg.a < 1 ? blend(fg, bgs[0]) : fg;
+    let worst = null;
+    for (const bg of bgs) {
+      const ratio = contrastRatio(fg2, bg);
+      if (!worst || ratio < worst.ratio) worst = { ratio, bg };
+    }
     const size = parseFloat(cs.fontSize);
     const bold = parseInt(cs.fontWeight, 10) >= 600;
     const large = size >= 24 || (size >= 18.66 && bold);
     const threshold = large ? 3 : 4.5;
-    if (ratio < threshold) {
-      report('S5', 'warn', el, `contrast ${ratio.toFixed(2)}:1 below ${threshold}:1 (${cs.color} on rgb(${Math.round(bg.r)}, ${Math.round(bg.g)}, ${Math.round(bg.b)}))`);
+    if (worst && worst.ratio < threshold) {
+      const where = bgs.length > 1 ? 'gradient' : `rgb(${Math.round(worst.bg.r)}, ${Math.round(worst.bg.g)}, ${Math.round(worst.bg.b)})`;
+      report('S5', 'warn', el, `contrast ${worst.ratio.toFixed(2)}:1 below ${threshold}:1 (${cs.color} on ${where})`);
     }
   }
 

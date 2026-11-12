@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — disabled controls are exempt from click/touch checks</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  #disabled-small { width: 18px; height: 18px; padding: 0; }
+  #disabled-covered { position: absolute; top: 100px; left: 20px; width: 120px; height: 36px; }
+  .cover { position: absolute; top: 96px; left: 16px; width: 140px; height: 44px; background: #dddddd; }
+</style>
+</head>
+<body>
+<button id="disabled-small" disabled>×</button>
+<button id="disabled-covered" disabled>缺货</button>
+<div class="cover" aria-hidden="true"></div>
+</body>
+</html>

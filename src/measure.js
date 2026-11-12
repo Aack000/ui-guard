@@ -225,7 +225,11 @@ export function measure() {
   // ---- H4: interactive element not clickable ----
   // If a modal dialog is open, background inertness is intentional: only check inside it.
   const modal = all.find((el) => el.getAttribute('aria-modal') === 'true');
-  const clickTargets = modal ? interactive.filter((el) => modal.contains(el)) : interactive;
+  // Disabled controls are not expected to be clickable: coverage checks only
+  // apply to enabled controls (a disabled "sold out" button may sit under a
+  // badge or be clipped without being a defect).
+  const clickTargets = (modal ? interactive.filter((el) => modal.contains(el)) : interactive)
+    .filter((el) => !el.disabled && el.getAttribute('aria-disabled') !== 'true');
 
   // An element scrolled entirely outside a scrollable ancestor is reachable by
   // scrolling, not covered: horizontal nav rails are the common case.
@@ -281,7 +285,8 @@ export function measure() {
   // ---- H5: interactive elements overlapping ----
   // Same modal exemption as H4: controls behind an open modal are inert, so
   // their geometric overlap with the dialog is not a real collision.
-  const h5Targets = modal ? interactive.filter((el) => modal.contains(el)) : interactive;
+  const h5Targets = (modal ? interactive.filter((el) => modal.contains(el)) : interactive)
+    .filter((el) => !el.disabled && el.getAttribute('aria-disabled') !== 'true');
   const rects = h5Targets.map((el) => ({ el, r: el.getBoundingClientRect() }));
   for (let i = 0; i < rects.length; i++) {
     for (let j = i + 1; j < rects.length; j++) {
@@ -328,6 +333,8 @@ export function measure() {
   // ---- S7: touch target smaller than 24x24 (WCAG 2.5.8) ----
   for (const el of all) {
     if (!el.matches('button, a[href], input:not([type="hidden"]), select, textarea, [role="button"], [role="link"]')) continue;
+    // Disabled controls cannot be tapped, so 24px target rules do not apply.
+    if (el.disabled || el.getAttribute('aria-disabled') === 'true') continue;
     // Inline links in prose are explicitly exempt from the 24px rule.
     if (el.matches('a[href]') && getComputedStyle(el).display === 'inline') continue;
     let target = el;

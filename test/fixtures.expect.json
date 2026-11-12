@@ -76,5 +76,8 @@
   },
   "sticky-cover.html": {
     "errorsAt": { "375": [] }
+  },
+  "disabled-controls.html": {
+    "errorsAt": { "375": [] }
   }
 }

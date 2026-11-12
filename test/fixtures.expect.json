@@ -76,12 +76,5 @@
   },
   "sticky-cover.html": {
     "errorsAt": { "375": [] }
-  },
-  "gradient-contrast.html": {
-    "errorsAt": { "375": [] },
-    "warns": ["S5"]
-  },
-  "ok-gradient.html": {
-    "errorsAt": { "375": [] }
   }
 }

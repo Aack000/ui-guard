@@ -118,16 +118,13 @@ export function measure() {
   function backgroundsOf(el) {
     for (let n = el; n; n = n.parentElement) {
       const cs = getComputedStyle(n);
-      const image = cs.backgroundImage;
-      if (image && image !== 'none') {
-        if (/url\(/i.test(image)) return null;
-        const stops = image.match(/rgba?\([^)]+\)/gi) || [];
-        if (stops.length === 0) return null;
-        const solid = stops.map(parseRgb).filter((c) => c && c.a >= 0.95);
-        if (solid.length !== stops.length) return null;
-        return solid;
-      }
+      // Gradients are often masked by cards/images, so computed stop colors are
+      // not the visible background. Keep contrast checks on solid colors only.
+      if (cs.backgroundImage !== 'none') return null;
       const c = parseRgb(cs.backgroundColor);
+      // A translucent color layer cannot be composited reliably: skip instead
+      // of reaching a far ancestor and guessing the visible color.
+      if (c && c.a > 0 && c.a < 0.95) return null;
       if (c && c.a >= 0.95) return [c];
     }
     return [{ r: 255, g: 255, b: 255, a: 1 }];
@@ -314,16 +311,15 @@ export function measure() {
     const bgs = backgroundsOf(el);
     if (!fg || !bgs) continue;
     const fg2 = fg.a < 1 ? blend(fg, bgs[0]) : fg;
-    let worst = null;
-    for (const bg of bgs) {
-      const ratio = contrastRatio(fg2, bg);
-      if (!worst || ratio < worst.ratio) worst = { ratio, bg };
-    }
     const size = parseFloat(cs.fontSize);
     const bold = parseInt(cs.fontWeight, 10) >= 600;
     const large = size >= 24 || (size >= 18.66 && bold);
     const threshold = large ? 3 : 4.5;
-    if (worst && worst.ratio < threshold) {
+    const ratios = bgs.map((bg) => ({ ratio: contrastRatio(fg2, bg), bg }));
+    const worst = ratios.reduce((a, b) => (b.ratio < a.ratio ? b : a));
+    // Gradients vary under the text: only flag when every stop fails. A single
+    // readable stop means the text can be legible somewhere (conservative).
+    if (ratios.every(({ ratio }) => ratio < threshold)) {
       const where = bgs.length > 1 ? 'gradient' : `rgb(${Math.round(worst.bg.r)}, ${Math.round(worst.bg.g)}, ${Math.round(worst.bg.b)})`;
       report('S5', 'warn', el, `contrast ${worst.ratio.toFixed(2)}:1 below ${threshold}:1 (${cs.color} on ${where})`);
     }

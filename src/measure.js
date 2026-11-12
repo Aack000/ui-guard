@@ -77,6 +77,40 @@ export function measure() {
   const all = [...document.querySelectorAll('body *')].filter(isVisible);
   const interactive = all.filter((el) => el.matches(INTERACTIVE));
 
+  // ---- color helpers (S5) ----
+  function parseRgb(str) {
+    const m = String(str).match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    const p = m[1].split(',').map((v) => parseFloat(v));
+    return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+  }
+  function relLum(c) {
+    const f = (v) => {
+      const x = v / 255;
+      return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+    };
+    return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+  }
+  function contrastRatio(a, b) {
+    const l1 = relLum(a);
+    const l2 = relLum(b);
+    return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+  }
+  function blend(fg, bg) {
+    const a = fg.a === undefined ? 1 : fg.a;
+    return { r: fg.r * a + bg.r * (1 - a), g: fg.g * a + bg.g * (1 - a), b: fg.b * a + bg.b * (1 - a), a: 1 };
+  }
+  /** 向上找第一个不透明纯色背景；遇到渐变/图片返回 null（无法可靠判断，跳过） */
+  function backgroundOf(el) {
+    for (let n = el; n; n = n.parentElement) {
+      const cs = getComputedStyle(n);
+      if (cs.backgroundImage !== 'none') return null;
+      const c = parseRgb(cs.backgroundColor);
+      if (c && c.a >= 0.95) return c;
+    }
+    return { r: 255, g: 255, b: 255, a: 1 };
+  }
+
   // ---- H1: page-level horizontal overflow ----
   const doc = document.documentElement;
   if (doc.scrollWidth > vw + EPS) {
@@ -128,6 +162,17 @@ export function measure() {
       report('H2', 'error', el, `text clipped vertically (${el.scrollHeight}px > ${el.clientHeight}px, overflow-y: ${cs.overflowY})`);
     }
 
+    // ---- S6: ellipsis truncation without an accessible full text ----
+    if (
+      hasDirectText &&
+      cs.textOverflow === 'ellipsis' &&
+      el.scrollWidth > el.clientWidth + EPS &&
+      !el.getAttribute('title') &&
+      !el.getAttribute('aria-label')
+    ) {
+      report('S6', 'warn', el, `text truncated with ellipsis but no title/aria-label (${el.scrollWidth}px > ${el.clientWidth}px)`);
+    }
+
     // ---- H3: fixed overlay outside viewport ----
     // Purely decorative fixed elements (ambient glows, background shapes) are
     // intentionally placed partly off-screen: no visible text, no interactive
@@ -163,9 +208,9 @@ export function measure() {
       const scrollY = /(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 1;
       if (!scrollX && !scrollY) continue;
       const cr = n.getBoundingClientRect();
-      if (r.right <= cr.left + 1 || r.left >= cr.right - 1 || r.bottom <= cr.top + 1 || r.top >= cr.bottom - 1) {
-        return true;
-      }
+      // 部分被裁也算“滚动可达”，避免横向导航在中间宽度报 partial 噪声。
+      const inside = r.left >= cr.left - 1 && r.right <= cr.right + 1 && r.top >= cr.top - 1 && r.bottom <= cr.bottom + 1;
+      if (!inside) return true;
     }
     return false;
   }
@@ -210,6 +255,28 @@ export function measure() {
       if (smaller > 0 && overlap / smaller > 0.3) {
         report('H5', 'error', a, `overlaps interactive element ${selector(b)} (${Math.round((overlap / smaller) * 100)}% of smaller area)`);
       }
+    }
+  }
+
+  // ---- S5: text contrast below WCAG AA ----
+  for (const el of all) {
+    const hasDirectText = [...el.childNodes].some(
+      (n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim().length > 0
+    );
+    if (!hasDirectText) continue;
+    const cs = getComputedStyle(el);
+    if (parseFloat(cs.opacity) < 0.5) continue;
+    const fg = parseRgb(cs.color);
+    const bg = backgroundOf(el);
+    if (!fg || !bg) continue;
+    const fg2 = fg.a < 1 ? blend(fg, bg) : fg;
+    const ratio = contrastRatio(fg2, bg);
+    const size = parseFloat(cs.fontSize);
+    const bold = parseInt(cs.fontWeight, 10) >= 600;
+    const large = size >= 24 || (size >= 18.66 && bold);
+    const threshold = large ? 3 : 4.5;
+    if (ratio < threshold) {
+      report('S5', 'warn', el, `contrast ${ratio.toFixed(2)}:1 below ${threshold}:1 (${cs.color} on rgb(${Math.round(bg.r)}, ${Math.round(bg.g)}, ${Math.round(bg.b)}))`);
     }
   }
 

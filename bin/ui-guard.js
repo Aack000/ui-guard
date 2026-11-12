@@ -31,6 +31,8 @@ function parseArgs(argv) {
     else if (arg === '--out') opts.out = rest[++i];
     else if (arg === '--baseline') opts.baseline = rest[++i];
     else if (arg === '--json') opts.json = true;
+    else if (arg === '--perf') opts.perf = true;
+    else if (arg === '--no-wait-overlay') opts.waitForStartupOverlay = false;
     else if (arg === '--actions') {
       opts.actions = rest[++i].split(';').filter(Boolean).map((s) => {
         const idx = s.indexOf(':');
@@ -78,7 +80,12 @@ async function run(opts) {
   }
 
   const url = toUrl(opts.url);
-  const results = await scan(url, { viewports: opts.viewports, actions: opts.actions });
+  const results = await scan(url, {
+    viewports: opts.viewports,
+    actions: opts.actions,
+    perf: Boolean(opts.perf),
+    waitForStartupOverlay: opts.waitForStartupOverlay !== false,
+  });
   if (opts.out) writeFileSync(opts.out, JSON.stringify({ url, results }, null, 2));
 
   if (opts.command === 'verify') {

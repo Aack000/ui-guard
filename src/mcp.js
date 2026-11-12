@@ -39,6 +39,8 @@ const TOOLS = [
         url: { type: 'string', description: 'http(s) URL or absolute file path of the page' },
         viewports: { type: 'array', items: { type: 'number' }, description: 'Viewport widths, default [375,768,1280]' },
         actions: ACTIONS_SCHEMA,
+        perf: { type: 'boolean', description: 'Sample FPS and long tasks once (adds ~1.2s); emits P1 warnings' },
+        waitForStartupOverlay: { type: 'boolean', description: 'Wait up to 8s for a full-screen boot overlay to disappear (default true)' },
       },
       required: ['url'],
     },
@@ -53,6 +55,8 @@ const TOOLS = [
         baseline: { type: 'string', description: 'Baseline report path returned by ui_scan' },
         viewports: { type: 'array', items: { type: 'number' } },
         actions: ACTIONS_SCHEMA,
+        perf: { type: 'boolean', description: 'Sample FPS and long tasks once (adds ~1.2s); emits P1 warnings' },
+        waitForStartupOverlay: { type: 'boolean' },
       },
       required: ['url', 'baseline'],
     },
@@ -86,6 +90,8 @@ async function callTool(name, args) {
   const results = await scan(toUrl(args.url), {
     viewports: args.viewports,
     actions: args.actions ?? [],
+    perf: args.perf === true,
+    waitForStartupOverlay: args.waitForStartupOverlay !== false,
   });
   const reportPath = join(tmpdir(), `ui-guard-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.json`);
   writeFileSync(reportPath, JSON.stringify({ url: args.url, results }, null, 2));

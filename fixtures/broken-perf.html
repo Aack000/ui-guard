@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — main thread stalls</title>
+</head>
+<body>
+<p>页面加载期间有 5 次主线程阻塞，每次约 120ms。</p>
+<script>
+  const block = (ms) => {
+    const start = performance.now();
+    while (performance.now() - start < ms) { /* busy wait */ }
+  };
+  block(120);
+  setTimeout(() => block(120), 100);
+  setTimeout(() => block(120), 250);
+  setTimeout(() => block(120), 400);
+  setTimeout(() => block(120), 550);
+</script>
+</body>
+</html>

@@ -42,5 +42,17 @@
     "errorsAt": {
       "375": { "baseline": [], "click:#btn-pop": ["H3"], "hover:#btn-tip": ["H3"] }
     }
+  },
+  "intro-overlay.html": {
+    "errorsAt": { "375": ["H1"], "1280": [] }
+  },
+  "broken-contrast.html": {
+    "errorsAt": { "375": [] },
+    "warns": ["S5"]
+  },
+  "broken-perf.html": {
+    "errorsAt": { "375": [] },
+    "warns": ["P1"],
+    "perf": true
   }
 }

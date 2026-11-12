@@ -321,6 +321,33 @@ export function measure() {
     }
   }
 
+  // ---- S8: hash target hidden under a sticky/fixed header ----
+  if (location.hash && location.hash.length > 1) {
+    let target = null;
+    try {
+      target = document.querySelector(location.hash);
+    } catch {
+      target = null;
+    }
+    if (target && isVisible(target)) {
+      let headerBottom = 0;
+      for (const el of all) {
+        const cs = getComputedStyle(el);
+        if (cs.position !== 'fixed' && cs.position !== 'sticky') continue;
+        const r = el.getBoundingClientRect();
+        if (r.height <= 0 || r.top > 0 || r.bottom > vh * 0.4) continue;
+        if (el.contains(target)) continue;
+        headerBottom = Math.max(headerBottom, r.bottom);
+      }
+      if (headerBottom > 0) {
+        const tr = target.getBoundingClientRect();
+        if (tr.top < headerBottom - EPS && tr.bottom > 0) {
+          report('S8', 'warn', target, `hash target starts at y=${Math.round(tr.top)} under a sticky header ending at ${Math.round(headerBottom)}; add scroll-margin-top`);
+        }
+      }
+    }
+  }
+
   // ---- S1: font faces that failed to load ----
   for (const face of document.fonts) {
     if (face.status === 'error') {
@@ -364,11 +391,12 @@ export function measure() {
       el.children.length === 0 &&
       el.textContent.trim().length > 0
   );
-  // Fixed-position text layers (toast, tooltip) intentionally sit over page
-  // text; that is a design overlay, not a document-flow collision.
-  const fixedChain = (el) => {
+  // Fixed/sticky text layers (toast, tooltip, sticky header) intentionally sit
+  // over page text; that is a design overlay, not a document-flow collision.
+  const overlayChain = (el) => {
     for (let n = el; n; n = n.parentElement) {
-      if (getComputedStyle(n).position === 'fixed') return true;
+      const pos = getComputedStyle(n).position;
+      if (pos === 'fixed' || pos === 'sticky') return true;
     }
     return false;
   };
@@ -377,7 +405,7 @@ export function measure() {
       const a = textBlocks[i];
       const b = textBlocks[j];
       if (a.contains(b) || b.contains(a)) continue;
-      if (fixedChain(a) || fixedChain(b)) continue;
+      if (overlayChain(a) || overlayChain(b)) continue;
       const ra = a.getBoundingClientRect();
       const rb = b.getBoundingClientRect();
       const w = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);

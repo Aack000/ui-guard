@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — hash target hidden under a sticky header</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  .spacer { height: 900px; }
+  h2 { margin: 0; padding: 24px 16px 0; }
+</style>
+</head>
+<body>
+<header>固定导航</header>
+<div class="spacer"></div>
+<h2 id="target">目标标题（加载时被固定导航盖住）</h2>
+<div class="spacer"></div>
+</body>
+</html>

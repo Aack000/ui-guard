@@ -18,7 +18,7 @@ function check(pass, label, details) {
 }
 
 for (const [file, exp] of Object.entries(fixtures)) {
-  const url = pathToFileURL(resolve('fixtures', file)).href;
+  const url = pathToFileURL(resolve('fixtures', file)).href + (exp.hash ? `#${exp.hash}` : '');
   const viewports = Object.keys(exp.errorsAt).map(Number);
   const results = await scan(url, { viewports, actions: exp.actions ?? [], perf: Boolean(exp.perf) });
   for (const r of results) {

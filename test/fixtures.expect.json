@@ -64,5 +64,14 @@
   "broken-touch.html": {
     "errorsAt": { "375": [] },
     "warns": ["S7"]
+  },
+  "anchor-sticky.html": {
+    "hash": "target",
+    "errorsAt": { "375": [] },
+    "warns": ["S8"]
+  },
+  "ok-anchor.html": {
+    "hash": "target",
+    "errorsAt": { "375": [] }
   }
 }

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — font fails to load</title>
+<style>
+  @font-face {
+    font-family: 'MissingFont';
+    src: url('./no-such-font.woff2') format('woff2');
+  }
+  body { font-family: 'MissingFont', system-ui, sans-serif; margin: 0; padding: 16px; }
+</style>
+</head>
+<body>
+<p>声明了自定义字体但字体文件 404，实际渲染回退到系统字体。</p>
+</body>
+</html>

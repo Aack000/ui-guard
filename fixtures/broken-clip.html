@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — clipped text</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+  .vclip { height: 40px; overflow: hidden; width: 260px; background: #fee; }
+  .hclip { white-space: nowrap; overflow: hidden; width: 120px; background: #eef; }
+</style>
+</head>
+<body>
+<div class="vclip">这段文字被固定高度裁掉了后半部分。这段文字被固定高度裁掉了后半部分。这段文字被固定高度裁掉了后半部分。这段文字被固定高度裁掉了后半部分。</div>
+<p class="hclip">这一行没有省略号却被硬裁掉的文字</p>
+</body>
+</html>

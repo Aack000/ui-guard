@@ -1,0 +1,17 @@
+{
+  "name": "ui-guard",
+  "version": "0.0.3",
+  "private": true,
+  "description": "Deterministic layout acceptance checks for agent-generated frontends (feasibility demo)",
+  "type": "module",
+  "bin": {
+    "ui-guard": "bin/ui-guard.js"
+  },
+  "scripts": {
+    "scan": "node bin/ui-guard.js",
+    "test": "node test/run-fixtures.js"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  }
+}

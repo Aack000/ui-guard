@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — horizontal overflow at 375px</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+  .too-wide { width: 600px; background: #fee; padding: 12px; }
+</style>
+</head>
+<body>
+<p>正常内容</p>
+<div class="too-wide">这个容器固定 600px 宽，在 375px 视口下把页面撑出水平滚动条。</div>
+</body>
+</html>

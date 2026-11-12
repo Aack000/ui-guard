@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — overlapping and covered buttons</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+  .stack { position: relative; height: 120px; }
+  #btn-a { position: absolute; top: 10px; left: 10px; padding: 12px 24px; }
+  #btn-b { position: absolute; top: 20px; left: 30px; padding: 12px 24px; }
+  .cover-zone { position: relative; height: 100px; }
+  #btn-covered { position: absolute; top: 20px; left: 20px; padding: 12px 24px; }
+  .overlay { position: absolute; top: 0; left: 0; width: 300px; height: 100px; background: rgba(200,200,255,.9); }
+</style>
+</head>
+<body>
+<div class="stack">
+  <button id="btn-a">按钮 A</button>
+  <button id="btn-b">按钮 B</button>
+</div>
+<div class="cover-zone">
+  <button id="btn-covered">被完全盖住的按钮</button>
+  <div class="overlay"></div>
+</div>
+</body>
+</html>

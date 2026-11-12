@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modal — inert background must NOT be flagged</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; }
+  .bg-button { margin: 16px; }
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.5); }
+  .dialog { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background: #fff; border-radius: 8px; padding: 24px; }
+</style>
+</head>
+<body>
+<button class="bg-button">背景按钮（模态打开时不可点是设计）</button>
+<div class="scrim"></div>
+<div class="dialog" role="dialog" aria-modal="true">
+  <p>模态对话框</p>
+  <button>确定</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — popover escapes viewport</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+  .popover { position: fixed; top: 80px; right: -80px; width: 220px; background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+</style>
+</head>
+<body>
+<p>页面内容</p>
+<div class="popover" role="tooltip">气泡右缘超出视口，部分内容看不到。</div>
+</body>
+</html>

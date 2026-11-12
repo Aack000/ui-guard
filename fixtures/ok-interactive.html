@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — interactive drawer and tooltip stay inside viewport</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+  #drawer { position: fixed; top: 0; right: 0; width: 240px; height: 100vh; background: #fff; border-left: 1px solid #ccc; padding: 16px; transform: translateX(100%); visibility: hidden; }
+  #drawer.open { transform: none; visibility: visible; }
+  #tip { position: fixed; bottom: 20px; left: 20px; width: 200px; background: #333; color: #fff; padding: 10px; border-radius: 6px; display: none; }
+</style>
+</head>
+<body>
+<button id="btn-drawer">打开抽屉</button>
+<button id="btn-tip">查看提示</button>
+<aside id="drawer">抽屉内容在视口内<button>关闭</button></aside>
+<div id="tip">气泡提示内容在视口内</div>
+<script>
+  document.querySelector('#btn-drawer').addEventListener('click', () => {
+    document.querySelector('#drawer').classList.toggle('open');
+  });
+  const tip = document.querySelector('#tip');
+  document.querySelector('#btn-tip').addEventListener('mouseenter', () => { tip.style.display = 'block'; });
+  document.querySelector('#btn-tip').addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+</script>
+</body>
+</html>

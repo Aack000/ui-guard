@@ -1,0 +1,46 @@
+{
+  "ok.html": {
+    "errorsAt": { "375": [], "1280": [] }
+  },
+  "modal.html": {
+    "errorsAt": { "375": [], "1280": [] }
+  },
+  "broken-overflow.html": {
+    "errorsAt": { "375": ["H1"], "1280": [] }
+  },
+  "broken-clip.html": {
+    "errorsAt": { "375": ["H1c", "H2"], "1280": ["H1c", "H2"] }
+  },
+  "broken-overlap.html": {
+    "errorsAt": { "375": ["H4", "H5"], "1280": ["H4", "H5"] }
+  },
+  "broken-popover.html": {
+    "errorsAt": { "375": ["H3"], "1280": ["H3"] }
+  },
+  "broken-font.html": {
+    "errorsAt": { "375": [] },
+    "warns": ["S1"]
+  },
+  "broken-squeeze.html": {
+    "errorsAt": { "375": [] },
+    "warns": ["S4"]
+  },
+  "ok-interactive.html": {
+    "actions": [
+      { "type": "click", "selector": "#btn-drawer" },
+      { "type": "hover", "selector": "#btn-tip" }
+    ],
+    "errorsAt": {
+      "375": { "baseline": [], "click:#btn-drawer": [], "hover:#btn-tip": [] }
+    }
+  },
+  "broken-interactive.html": {
+    "actions": [
+      { "type": "click", "selector": "#btn-pop" },
+      { "type": "hover", "selector": "#btn-tip" }
+    ],
+    "errorsAt": {
+      "375": { "baseline": [], "click:#btn-pop": ["H3"], "hover:#btn-tip": ["H3"] }
+    }
+  }
+}

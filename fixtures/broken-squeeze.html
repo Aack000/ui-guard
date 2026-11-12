@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — flex squeezes logo into vertical single-character strip</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+  nav { display: flex; align-items: center; gap: 8px; }
+  .logo { flex: 1; min-width: 0; font-size: 18px; font-weight: 700; }
+  .nav-items { display: flex; flex-shrink: 0; gap: 4px; }
+  .nav-items span { padding: 6px 10px; background: #eef; white-space: nowrap; }
+</style>
+</head>
+<body>
+<nav>
+  <span class="logo">二手市场</span>
+  <div class="nav-items">
+    <span>商品列表</span><span>顾客端</span><span>商家端</span><span>管理端</span>
+  </div>
+</nav>
+</body>
+</html>

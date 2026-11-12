@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — popover and tooltip escape viewport only when opened</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+  #pop { position: fixed; top: 80px; right: -80px; width: 220px; background: #fff; border: 1px solid #ccc; padding: 16px; display: none; }
+  #tip { position: fixed; top: 40px; left: -100px; width: 180px; background: #333; color: #fff; padding: 10px; display: none; }
+</style>
+</head>
+<body>
+<button id="btn-pop">弹出气泡</button>
+<button id="btn-tip">悬停提示</button>
+<div id="pop">点击后才出现的气泡，右缘越出视口。</div>
+<div id="tip">悬停后才出现的提示，左缘越出视口。</div>
+<script>
+  document.querySelector('#btn-pop').addEventListener('click', () => {
+    document.querySelector('#pop').style.display = 'block';
+  });
+  const tip = document.querySelector('#tip');
+  document.querySelector('#btn-tip').addEventListener('mouseenter', () => { tip.style.display = 'block'; });
+  document.querySelector('#btn-tip').addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+</script>
+</body>
+</html>

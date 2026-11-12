@@ -304,6 +304,23 @@ export function measure() {
     }
   }
 
+  // ---- S7: touch target smaller than 24x24 (WCAG 2.5.8) ----
+  for (const el of all) {
+    if (!el.matches('button, a[href], input:not([type="hidden"]), select, textarea, [role="button"], [role="link"]')) continue;
+    // Inline links in prose are explicitly exempt from the 24px rule.
+    if (el.matches('a[href]') && getComputedStyle(el).display === 'inline') continue;
+    let target = el;
+    if (el.matches('input[type="checkbox"], input[type="radio"]')) {
+      target = el.closest('label')
+        || (el.id ? document.querySelector(`label[for="${CSS.escape(el.id)}"]`) : null)
+        || el;
+    }
+    const r = target.getBoundingClientRect();
+    if (r.width < 24 || r.height < 24) {
+      report('S7', 'warn', target, `touch target ${Math.round(r.width)}×${Math.round(r.height)} below 24×24`);
+    }
+  }
+
   // ---- S1: font faces that failed to load ----
   for (const face of document.fonts) {
     if (face.status === 'error') {
@@ -347,11 +364,20 @@ export function measure() {
       el.children.length === 0 &&
       el.textContent.trim().length > 0
   );
+  // Fixed-position text layers (toast, tooltip) intentionally sit over page
+  // text; that is a design overlay, not a document-flow collision.
+  const fixedChain = (el) => {
+    for (let n = el; n; n = n.parentElement) {
+      if (getComputedStyle(n).position === 'fixed') return true;
+    }
+    return false;
+  };
   for (let i = 0; i < textBlocks.length; i++) {
     for (let j = i + 1; j < textBlocks.length; j++) {
       const a = textBlocks[i];
       const b = textBlocks[j];
       if (a.contains(b) || b.contains(a)) continue;
+      if (fixedChain(a) || fixedChain(b)) continue;
       const ra = a.getBoundingClientRect();
       const rb = b.getBoundingClientRect();
       const w = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);

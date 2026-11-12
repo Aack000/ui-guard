@@ -60,5 +60,9 @@
     "errorsAt": {
       "375": { "baseline": ["H5"], "click:#open": [] }
     }
+  },
+  "broken-touch.html": {
+    "errorsAt": { "375": [] },
+    "warns": ["S7"]
   }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — touch target below 24px</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 16px; font-family: system-ui, sans-serif; }
+  .tiny { width: 18px; height: 18px; min-height: 0; padding: 0; }
+  button:not(.tiny) { min-height: 26px; }
+  a.inline { display: inline; }
+  label.check { display: flex; align-items: center; gap: 8px; padding: 6px 0; }
+  input[type="checkbox"] { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<button class="tiny">×</button>
+<p>这是一段 <a href="#" class="inline">普通文本链接</a>，inline 链接不应误报。</p>
+<label class="check"><input type="checkbox"> <span>整行 label 可点</span></label>
+<button>正常按钮</button>
+</body>
+</html>

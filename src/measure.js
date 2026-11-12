@@ -152,7 +152,26 @@ export function measure() {
   // If a modal dialog is open, background inertness is intentional: only check inside it.
   const modal = all.find((el) => el.getAttribute('aria-modal') === 'true');
   const clickTargets = modal ? interactive.filter((el) => modal.contains(el)) : interactive;
+
+  // An element scrolled entirely outside a scrollable ancestor is reachable by
+  // scrolling, not covered: horizontal nav rails are the common case.
+  function clippedByScroller(el) {
+    const r = el.getBoundingClientRect();
+    for (let n = el.parentElement; n; n = n.parentElement) {
+      const cs = getComputedStyle(n);
+      const scrollX = /(auto|scroll)/.test(cs.overflowX) && n.scrollWidth > n.clientWidth + 1;
+      const scrollY = /(auto|scroll)/.test(cs.overflowY) && n.scrollHeight > n.clientHeight + 1;
+      if (!scrollX && !scrollY) continue;
+      const cr = n.getBoundingClientRect();
+      if (r.right <= cr.left + 1 || r.left >= cr.right - 1 || r.bottom <= cr.top + 1 || r.top >= cr.bottom - 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   for (const el of clickTargets) {
+    if (clippedByScroller(el)) continue;
     const r = el.getBoundingClientRect();
     if (r.width < 4 || r.height < 4) continue;
     const points = [

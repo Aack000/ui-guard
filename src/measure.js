@@ -55,13 +55,24 @@ export function measure() {
     h: Math.round(r.height),
   });
 
+  // Identical rule + selector on repeated cards (product grids, lists) must not
+  // emit 20 near-identical findings: aggregate and surface the count instead.
+  const buckets = new Map();
   function report(rule, severity, el, message) {
-    findings.push({
+    const selectorText = selector(el);
+    const key = `${rule}|${severity}|${selectorText}`;
+    const hit = buckets.get(key);
+    if (hit) {
+      hit.count += 1;
+      return;
+    }
+    buckets.set(key, {
       rule,
       severity,
-      selector: selector(el),
+      selector: selectorText,
       message,
       rect: rectOf(el.getBoundingClientRect()),
+      count: 1,
     });
   }
 
@@ -371,6 +382,18 @@ export function measure() {
     if (fontSize > 0 && r.width < fontSize * 2.2 && r.height > fontSize * 2.5) {
       report('S4', 'warn', el, `text squeezed to ${Math.round(r.width)}px wide (${text.length} chars, font ${fontSize}px): wraps into single-character column`);
     }
+  }
+
+  for (const item of buckets.values()) {
+    const message = item.count > 1 ? `${item.message} (×${item.count})` : item.message;
+    findings.push({
+      rule: item.rule,
+      severity: item.severity,
+      selector: item.selector,
+      message,
+      rect: item.rect,
+      count: item.count,
+    });
   }
 
   return findings;

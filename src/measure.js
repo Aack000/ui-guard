@@ -187,7 +187,17 @@ export function measure() {
       if (r.top < -EPS) out.push('top');
       if (r.bottom > vh + EPS) out.push('bottom');
       if (out.length > 0) {
-        report('H3', 'error', el, `fixed element escapes viewport on: ${out.join(', ')}`);
+        // H4 skips elements whose sample points all fall outside the viewport,
+        // so a dialog pushed off-screen would hide its buttons from every rule.
+        // Surface that consequence here where the container is already failing.
+        const unreachable = [...el.querySelectorAll(INTERACTIVE)].filter((child) => {
+          const cr = child.getBoundingClientRect();
+          return cr.right <= 0 || cr.left >= vw || cr.bottom <= 0 || cr.top >= vh;
+        }).length;
+        const suffix = unreachable > 0
+          ? ` — ${unreachable} interactive element(s) entirely outside the viewport`
+          : '';
+        report('H3', 'error', el, `fixed element escapes viewport on: ${out.join(', ')}${suffix}`);
       }
       }
     }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — sticky header temporarily covers a control</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  main { height: 1200px; }
+  #covered { position: absolute; top: 20px; left: 20px; width: 120px; height: 36px; }
+</style>
+</head>
+<body>
+<header>吸顶导航</header>
+<button id="covered">滚动即可到达</button>
+<main></main>
+</body>
+</html>

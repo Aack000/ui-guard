@@ -248,9 +248,18 @@ export function measure() {
       [r.x + r.width / 2, r.bottom - Math.min(8, r.height / 4)],
     ].filter(([x, y]) => x >= 0 && x < vw && y >= 0 && y < vh);
     if (points.length === 0) continue; // off-screen: covered by H1/H3
+    // A sticky header covers content only until the page is scrolled; unlike a
+    // fixed overlay this is reachable, so those sample points are not "covered".
+    const underStickyHeader = (node) => {
+      for (let n = node; n; n = n.parentElement) {
+        if (getComputedStyle(n).position === 'sticky' && n.getBoundingClientRect().top <= 1) return true;
+      }
+      return false;
+    };
     let covered = 0;
     for (const [x, y] of points) {
       const top = document.elementsFromPoint(x, y)[0];
+      if (top && underStickyHeader(top)) continue;
       const hit = top && (top === el || el.contains(top));
       if (!hit) covered++;
     }

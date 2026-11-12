@@ -73,5 +73,8 @@
   "ok-anchor.html": {
     "hash": "target",
     "errorsAt": { "375": [] }
+  },
+  "sticky-cover.html": {
+    "errorsAt": { "375": [] }
   }
 }

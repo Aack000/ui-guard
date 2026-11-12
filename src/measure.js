@@ -228,7 +228,10 @@ export function measure() {
   }
 
   // ---- S3: non-interactive text blocks overlapping ----
-  const textBlocks = all.filter(
+  // While a modal is open, text behind it is intentionally obscured: only
+  // inspect text inside the modal, same exemption as H4.
+  const textScope = modal ? all.filter((el) => modal.contains(el)) : all;
+  const textBlocks = textScope.filter(
     (el) =>
       !el.matches(INTERACTIVE) &&
       el.children.length === 0 &&

@@ -59,6 +59,10 @@ export async function scan(url, {
               const safe = state.name.replace(/[^a-z0-9]+/gi, '_');
               result.screenshot = join(screenshotDir, `${width}-${safe}.png`);
               await page.screenshot({ path: result.screenshot, fullPage: true });
+              // fullPage captures paint fixed layers (intro/backdrop) only once,
+              // which misleads manual review; keep a viewport-accurate copy too.
+              result.viewportScreenshot = join(screenshotDir, `${width}-${safe}-viewport.png`);
+              await page.screenshot({ path: result.viewportScreenshot, fullPage: false });
             }
             results.push(result);
           } catch (err) {

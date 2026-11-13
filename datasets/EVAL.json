@@ -13,16 +13,16 @@
     "unverifiedNegatives": 7,
     "realEvidence": {
       "total": 23,
-      "raw": 15,
-      "scan": 8
+      "raw": 16,
+      "scan": 7
     }
   },
   "metrics": {
     "real": {
       "precision": 1,
-      "recall": 0.938,
-      "tp": 15,
-      "fn": 1,
+      "recall": 1,
+      "tp": 16,
+      "fn": 0,
       "fp": 0,
       "tn": 0
     },
@@ -39,9 +39,9 @@
     "S5": {
       "real": {
         "precision": 1,
-        "recall": 0.917,
-        "tp": 11,
-        "fn": 1,
+        "recall": 1,
+        "tp": 12,
+        "fn": 0,
         "fp": 0,
         "tn": 0
       },
@@ -289,7 +289,7 @@
       }
     }
   },
-  "unlabeledFindings": 27,
+  "unlabeledFindings": 29,
   "unlabeledFindingList": [
     "P1@375 click:register S5 div.login > div.login-panel > div.login-header > p.login-desc",
     "P1@375 click:register S5 div.login > div.login-panel > div.login-divider > span",
@@ -313,6 +313,8 @@
     "P3@1440 products S5 div.products > div.search-filter > button.el-button.el-button--warning > span",
     "P3@1440 cart S5 div.cart-page > div.cart-header > button.el-button.el-button--primary > span",
     "P3@1280 click:products S5 div.product-info > div.product-actions > button.el-button.el-button--primary > span",
+    "P3@375 products H1c div.navbar-wrapper > header.el-header.navbar > div.navbar-content > div.user-section",
+    "P3@375 products S4 header.el-header.navbar > div.navbar-content > div.logo > span",
     "P3@375 baseline S5 div.login-container.teacher-theme > div.login-card > div.login-footer > p",
     "P3@1280 baseline S5 div.login-container.teacher-theme > div.login-card > div.login-footer > p",
     "P4@1280 baseline S5 div.login-container.teacher-theme > div.login-card > div.login-footer > p",
@@ -331,8 +333,6 @@
     "real-106",
     "real-107"
   ],
-  "falseNegatives": [
-    "real-006 P3@375 products S5 .product-actions > button > span"
-  ],
+  "falseNegatives": [],
   "falsePositives": []
 }

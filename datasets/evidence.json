@@ -25,8 +25,9 @@
     "selector": "div.login-page > div.login-card > div.login-tabs > button.tab"
   },
   "real-006": {
-    "type": "scan",
-    "note": "375 product button S5 absent; 1280 snapshot has count 862, suspected engine miss"
+    "type": "raw",
+    "file": "P3-products375.json",
+    "selector": "div.product-info > div.product-actions > button.el-button.el-button--primary > span"
   },
   "real-007": {
     "type": "raw",

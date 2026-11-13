@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — closed drawer moved out by transform</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 240px;
+    height: 100vh;
+    background: #ffffff;
+    transform: translateX(100%);
+  }
+  main { height: 1200px; padding: 16px; }
+</style>
+</head>
+<body>
+<aside class="drawer" data-state="closed" aria-label="关闭的抽屉">
+  <p>抽屉内容</p>
+  <button>关闭</button>
+</aside>
+<main><p>正文</p></main>
+</body>
+</html>

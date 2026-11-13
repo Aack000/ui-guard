@@ -1,8 +1,20 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.23（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.24（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.23）
+## 最新结果（2026-11-13，v0.0.24）
+
+子代理独立审查（R1–R12）后的误报修复：
+
+- **R6 祖先 disabled**：`fieldset[disabled]` 与 `aria-disabled` 容器内的控件不再参与 H4/H5/S7。
+- **R10 sr-only**：1px 视觉隐藏文本不再触发 H1c/H2/S5；新增 `sr-only.html`。
+- **R12 透明文字**：`color: transparent` / 渐变文字不再被 S5 误报；新增 `gradient-text.html`。
+- **R1 显式关闭态**：`data-state=closed` / `pointer-events:none` 的 fixed 抽屉不再报 H3；新增 `drawer-closed.html`。
+- **S7 视口外控件**：关闭抽屉 / 首屏下方控件不再要求 24px。
+- 新增 4 个 fixture，回归 **44/44**；README 规则表补齐 H4-partial / S7 / S8、豁免条件与已知局限（R2/R3/R4/R5/R8/R9/R11 记录未修）。
+- 自动化任务 view 只返回 id，无法确认实际运行状态（见汇报）。
+
+## 上一阶段结果（2026-11-13，v0.0.23）
 
 二手长列表性能与滚动底部：
 

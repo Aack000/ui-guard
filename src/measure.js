@@ -35,6 +35,22 @@ export function measure() {
     return r.width > 0 && r.height > 0;
   }
 
+  // sr-only / visually-hidden 工具类：1px 裁剪，不是内容溢出。
+  function visuallyHidden(el) {
+    const r = el.getBoundingClientRect();
+    return r.width <= 1 && r.height <= 1;
+  }
+
+  // disabled 沿祖先传播：fieldset[disabled] 与只读容器（aria-disabled）内
+  // 的控件同样不应参与点击/触控检查。
+  function disabledChain(el) {
+    for (let n = el; n; n = n.parentElement) {
+      if (n.matches && n.matches(':disabled')) return true;
+      if (n.getAttribute && n.getAttribute('aria-disabled') === 'true') return true;
+    }
+    return false;
+  }
+
   function selector(el) {
     if (el.id) return '#' + el.id;
     const parts = [];
@@ -163,6 +179,7 @@ export function measure() {
     // ---- H1c: text clipped horizontally ----
     if (
       hasDirectText &&
+      !visuallyHidden(el) &&
       el.scrollWidth > el.clientWidth + EPS &&
       /(hidden|clip)/.test(cs.overflowX) &&
       cs.textOverflow !== 'ellipsis'
@@ -173,6 +190,7 @@ export function measure() {
     // ---- H2: text clipped vertically ----
     if (
       hasDirectText &&
+      !visuallyHidden(el) &&
       el.scrollHeight > el.clientHeight + EPS &&
       /(hidden|clip)/.test(cs.overflowY) &&
       cs.webkitLineClamp === 'none' &&
@@ -198,7 +216,11 @@ export function measure() {
     // descendants => not a defect.
     if (cs.position === 'fixed') {
       const decorative =
-        el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE);
+        (el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE)) ||
+        el.getAttribute('data-state') === 'closed' ||
+        el.getAttribute('aria-hidden') === 'true' ||
+        el.hasAttribute('inert') ||
+        cs.pointerEvents === 'none';
       if (!decorative) {
       const out = [];
       if (r.left < -EPS) out.push('left');
@@ -229,7 +251,7 @@ export function measure() {
   // apply to enabled controls (a disabled "sold out" button may sit under a
   // badge or be clipped without being a defect).
   const clickTargets = (modal ? interactive.filter((el) => modal.contains(el)) : interactive)
-    .filter((el) => !el.disabled && el.getAttribute('aria-disabled') !== 'true');
+    .filter((el) => !disabledChain(el));
 
   // An element scrolled entirely outside a scrollable ancestor is reachable by
   // scrolling, not covered: horizontal nav rails are the common case.
@@ -286,7 +308,7 @@ export function measure() {
   // Same modal exemption as H4: controls behind an open modal are inert, so
   // their geometric overlap with the dialog is not a real collision.
   const h5Targets = (modal ? interactive.filter((el) => modal.contains(el)) : interactive)
-    .filter((el) => !el.disabled && el.getAttribute('aria-disabled') !== 'true');
+    .filter((el) => !disabledChain(el));
   const rects = h5Targets.map((el) => ({ el, r: el.getBoundingClientRect() }));
   for (let i = 0; i < rects.length; i++) {
     for (let j = i + 1; j < rects.length; j++) {
@@ -304,29 +326,28 @@ export function measure() {
     }
   }
 
-  // ---- S5: text contrast below WCAG AA ----
+  // ---- S5: text contrast below WCAG AA (solid backgrounds only) ----
   for (const el of all) {
     const hasDirectText = [...el.childNodes].some(
       (n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim().length > 0
     );
     if (!hasDirectText) continue;
+    if (visuallyHidden(el)) continue;
     const cs = getComputedStyle(el);
     if (parseFloat(cs.opacity) < 0.5) continue;
     const fg = parseRgb(cs.color);
-    const bgs = backgroundsOf(el);
-    if (!fg || !bgs) continue;
-    const fg2 = fg.a < 1 ? blend(fg, bgs[0]) : fg;
+    // Transparent / gradient-clipped text has no single foreground color.
+    if (!fg || fg.a === 0) continue;
+    const bg = backgroundsOf(el)?.[0];
+    if (!bg) continue;
+    const fg2 = fg.a < 1 ? blend(fg, bg) : fg;
     const size = parseFloat(cs.fontSize);
     const bold = parseInt(cs.fontWeight, 10) >= 600;
     const large = size >= 24 || (size >= 18.66 && bold);
     const threshold = large ? 3 : 4.5;
-    const ratios = bgs.map((bg) => ({ ratio: contrastRatio(fg2, bg), bg }));
-    const worst = ratios.reduce((a, b) => (b.ratio < a.ratio ? b : a));
-    // Gradients vary under the text: only flag when every stop fails. A single
-    // readable stop means the text can be legible somewhere (conservative).
-    if (ratios.every(({ ratio }) => ratio < threshold)) {
-      const where = bgs.length > 1 ? 'gradient' : `rgb(${Math.round(worst.bg.r)}, ${Math.round(worst.bg.g)}, ${Math.round(worst.bg.b)})`;
-      report('S5', 'warn', el, `contrast ${worst.ratio.toFixed(2)}:1 below ${threshold}:1 (${cs.color} on ${where})`);
+    const ratio = contrastRatio(fg2, bg);
+    if (ratio < threshold) {
+      report('S5', 'warn', el, `contrast ${ratio.toFixed(2)}:1 below ${threshold}:1 (${cs.color} on rgb(${Math.round(bg.r)}, ${Math.round(bg.g)}, ${Math.round(bg.b)}))`);
     }
   }
 
@@ -334,9 +355,13 @@ export function measure() {
   for (const el of all) {
     if (!el.matches('button, a[href], input:not([type="hidden"]), select, textarea, [role="button"], [role="link"]')) continue;
     // Disabled controls cannot be tapped, so 24px target rules do not apply.
-    if (el.disabled || el.getAttribute('aria-disabled') === 'true') continue;
+    if (disabledChain(el)) continue;
     // Inline links in prose are explicitly exempt from the 24px rule.
     if (el.matches('a[href]') && getComputedStyle(el).display === 'inline') continue;
+    // Controls fully outside the viewport (closed drawer, below the fold) are
+    // not currently tappable; measure them once they are on screen.
+    const vr = el.getBoundingClientRect();
+    if (vr.right <= 0 || vr.left >= vw || vr.bottom <= 0 || vr.top >= vh) continue;
     let target = el;
     if (el.matches('input[type="checkbox"], input[type="radio"]')) {
       target = el.closest('label')

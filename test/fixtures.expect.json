@@ -79,5 +79,17 @@
   },
   "disabled-controls.html": {
     "errorsAt": { "375": [] }
+  },
+  "sr-only.html": {
+    "errorsAt": { "375": [] }
+  },
+  "fieldset-disabled.html": {
+    "errorsAt": { "375": [] }
+  },
+  "gradient-text.html": {
+    "errorsAt": { "375": [] }
+  },
+  "drawer-closed.html": {
+    "errorsAt": { "375": [] }
   }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — fieldset disabled propagates to controls</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  fieldset { border: 0; margin: 0; padding: 0; }
+  .tiny { width: 18px; height: 18px; padding: 0; }
+  #covered { position: absolute; top: 100px; left: 20px; width: 120px; height: 36px; }
+  .cover { position: absolute; top: 96px; left: 16px; width: 140px; height: 44px; background: #dddddd; }
+</style>
+</head>
+<body>
+<fieldset disabled>
+  <button class="tiny">×</button>
+  <button id="covered">提交</button>
+</fieldset>
+<div class="cover" aria-hidden="true"></div>
+</body>
+</html>

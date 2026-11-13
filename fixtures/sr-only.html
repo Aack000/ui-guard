@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — visually hidden text must not look like clipping</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 16px; font-family: system-ui, sans-serif; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  p { margin: 0; color: #222222; font-size: 16px; }
+</style>
+</head>
+<body>
+<span class="sr-only">这是一段只给屏幕阅读器的长文本，不应触发横向裁剪或纵向裁剪</span>
+<p>正常可见文本</p>
+</body>
+</html>

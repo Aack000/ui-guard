@@ -9,17 +9,20 @@
 | 层 | 规则 | 内容 | 误报控制 |
 |---|---|---|---|
 | 硬错误 | H1 | 页面级水平溢出 | 排除横向滚动容器与 fixed 浮层 |
-| 硬错误 | H1c | 文本横向裁剪（无省略号） | 只查含直接文本的元素；`text-overflow: ellipsis` 豁免 |
-| 硬错误 | H2 | 文本纵向裁剪 | `line-clamp` / 省略号豁免；只查直接文本 |
-| 硬错误 | H3 | fixed 浮层越出视口 | 无文本且无可交互后代的装饰元素豁免；关闭态抽屉（不可见）不参与 |
-| 硬错误 | H4 | 可交互元素被完全遮挡、点不到 | 命中测试取栈顶；模态只查模态内部；滚动容器内被裁出的元素豁免 |
-| 硬错误 | H5 | 可交互元素互相重叠 | 只算可交互元素；父子包含关系跳过 |
+| 硬错误 | H1c | 文本横向裁剪（无省略号） | 只查直接文本；`ellipsis`、`sr-only`（1px 裁剪）豁免 |
+| 硬错误 | H2 | 文本纵向裁剪 | `line-clamp` / `ellipsis` 豁免；`sr-only` 豁免 |
+| 硬错误 | H3 | fixed 浮层越出视口 | 纯装饰、`aria-hidden` / `inert`、`data-state=closed`、`pointer-events:none` 豁免 |
+| 硬错误 | H4 | 可交互元素被完全遮挡、点不到 | 命中测试取栈顶；模态只查内部；滚动容器 / sticky 头 / disabled（含 `fieldset` 与祖先 `aria-disabled`）豁免 |
+| 疑似 | H4-partial | 部分采样点被遮挡 | warn，不作为交付阻塞 |
+| 硬错误 | H5 | 可交互元素互相重叠 | 只算可交互；父子包含 / 模态 / disabled 豁免；30% 面积阈值 |
 | 疑似 | S1 | 字体声明了但加载失败 | `document.fonts` 状态 |
 | 疑似 | S2 | 同排按钮垂直中心不齐 | 只查同父按钮组 |
-| 疑似 | S3 | 非交互文本互相重叠 | 模态打开时只查模态内部 |
+| 疑似 | S3 | 非交互文本互相重叠 | 模态打开时只查模态内部；fixed/sticky 浮层豁免 |
 | 疑似 | S4 | 文本被挤成单字竖排 | 排除 `writing-mode: vertical-*` |
-| 疑似 | S5 | 文本对比度低于 WCAG AA（4.5:1 / 大字 3:1） | 背景是渐变/图片时跳过 |
+| 疑似 | S5 | 文本对比度低于 WCAG AA（4.5:1 / 大字 3:1） | 只算纯色背景；渐变/图片、透明文字、`sr-only` 跳过 |
 | 疑似 | S6 | 省略号截断但没有 `title` / `aria-label` | 只查确实溢出且无完整文本入口的元素 |
+| 疑似 | S7 | 触控目标小于 24×24（WCAG 2.5.8） | 禁用控件、视口外、inline 链接、checkbox 的关联 label 豁免 |
+| 疑似 | S8 | hash 锚点被吸顶 / 固定头部遮住 | 有 `scroll-margin-top` 时不报 |
 | 性能 | P1 | 帧率 < 45 或长任务过多（`--perf` 开启） | 只采样一次，1.2 秒 |
 
 ## 安装
@@ -73,11 +76,11 @@ claude mcp add -s user ui-guard -- node <绝对路径>/bin/ui-guard.js mcp
 ## 测试
 
 ```bash
-npm test                 # 31 项：多视口断言 + 交互状态 + 回归对比 + 新规则
+npm test                 # 44 项：多视口断言 + 交互状态 + 回归对比 + 新规则
 node test/run-mcp.js     # MCP stdio 端到端
 ```
 
-fixtures 覆盖：正常页的刻意设计（badge 重叠、省略号、line-clamp、横向滚动、关闭态抽屉、装饰光晕、竖排文字、模态背景）、各类硬错误、交互打开态、启动遮罩、低对比度、长任务。
+fixtures 覆盖：正常页的刻意设计（badge 重叠、省略号、line-clamp、横向滚动、关闭态抽屉、装饰光晕、竖排文字、模态背景、sr-only、fieldset disabled、透明渐变文字、transform 关闭抽屉）、各类硬错误、交互打开态、启动遮罩、低对比度、长任务。
 
 ## 设计原则
 
@@ -93,6 +96,12 @@ fixtures 覆盖：正常页的刻意设计（badge 重叠、省略号、line-cla
 - 性能阈值是启发式（headless 环境帧率可能高于/低于真实设备）。
 - S2 / S3 信噪比一般，适合参考不适合当门禁。
 - 不判断业务语义（“过期按钮”、文案错误不属于布局验收）。
+- **H1 被 `html/body{overflow-x:hidden}` 掩盖时查不到**（子代理审查 R2，未修：需要区分“故意裁切”与“掩盖溢出”）。
+- **H4 只检查首屏采样点**：长页面下方被绝对定位浮层永久遮挡的按钮查不到（R4）。
+- **fixed 底部操作栏**未像 sticky 头那样豁免：滚动可露出的按钮可能报 H4（R5）。
+- **常驻 `aria-modal`**（不可见抽屉靠 transform 关闭）会让 H4/H5/S3 只查它内部（R9）；纯 transform 且无 `data-state` / `pointer-events` 信号的关闭抽屉仍可能报 H3（R1）。
+- **H5 30% 面积阈值**对头像堆叠、`stretched-link` 可能误报（R3）。
+- **`aria-hidden` / `inert` 子树整体不参与检查**（R8）：SPA 给 `#root` 加 aria-hidden 做 focus trap 时会整页空报告。
 
 ## 目录
 

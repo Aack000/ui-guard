@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — transparent gradient text must not be judged as low contrast</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 16px; font-family: system-ui, sans-serif; }
+  h1 {
+    margin: 0 0 12px;
+    font-size: 32px;
+    background: linear-gradient(90deg, #333333, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  p { margin: 0; color: #222222; font-size: 16px; }
+</style>
+</head>
+<body>
+<h1>渐变文字标题</h1>
+<p>正常文本</p>
+</body>
+</html>

@@ -85,6 +85,7 @@ try {
   try { probe = JSON.parse(probeText); } catch { probe = null; }
   check(Array.isArray(probe?.candidates) && probe.candidates.some((c) => c.kind === 'H3'), 'ui_probe returns evidence candidates', probeText);
   check(!/VERIFY (PASS|FAIL)|hard errors|isError/.test(probeText) && probe?.abstain === false, 'ui_probe stays evidence-only', probeText);
+  check(probe.candidates.every((c) => c.requiresVerification === true && c.confidence === undefined), 'ui_probe marks every candidate for verification and omits fake confidence', probeText);
 
   writeFileSync(tempPopover, readFileSync(resolve('fixtures', 'ok.html'), 'utf8'));
   const verifyPass = await rpc(5, 'tools/call', { name: 'ui_verify', arguments: { url: popoverUrl, baseline, viewports: [375] } });
@@ -92,6 +93,18 @@ try {
   const cur2 = passText.match(/current report: (.+)/)?.[1]?.trim();
   if (cur2) reportPaths.push(cur2);
   check(passText.includes('VERIFY PASS') && passText.includes('1 fixed'), 'ui_verify passes a fixed page and counts it as fixed', passText);
+
+  const unknown = await rpc(7, 'tools/call', { name: 'not_a_tool', arguments: { url: popoverUrl } });
+  check(unknown.error?.code === -32601, 'unknown tool returns JSON-RPC -32601', JSON.stringify(unknown));
+
+  const missing = await rpc(8, 'tools/call', { name: 'ui_scan', arguments: {} });
+  check(missing.error?.code === -32602, 'missing required args returns JSON-RPC -32602', JSON.stringify(missing));
+
+  const failedProbe = await rpc(9, 'tools/call', { name: 'ui_probe', arguments: { url: 'http://127.0.0.1:1/', viewports: [375] } });
+  const failedProbeText = failedProbe.result?.content?.[0]?.text ?? '';
+  let failedProbeJson = null;
+  try { failedProbeJson = JSON.parse(failedProbeText); } catch { failedProbeJson = null; }
+  check(failedProbeJson?.abstain === true && Array.isArray(failedProbeJson?.limitations) && failedProbeJson.limitations.length > 0, 'ui_probe failure still returns JSON abstain contract', failedProbeText);
 } finally {
   clearTimeout(timeout);
   child.kill();

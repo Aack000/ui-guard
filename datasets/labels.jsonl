@@ -3,9 +3,9 @@
 {"id":"real-003","source":"P2","viewport":375,"state":"baseline","rule":"S5","selector":".login-header > h1","label":true,"note":"contrast 1.40:1 on white"}
 {"id":"real-004","source":"P2","viewport":375,"state":"baseline","rule":"S5","selector":".login-header > p","label":true,"note":"contrast 2.85:1"}
 {"id":"real-005","source":"P2","viewport":375,"state":"baseline","rule":"S5","selector":"button.tab","label":true,"note":"contrast 2.64:1"}
-{"id":"real-006","source":"P3","viewport":375,"state":"products","rule":"S5","selector":".product-actions > button > span","label":true,"note":"stale: first product buttons are disabled/absent in the current logged snapshot","stale":true}
-{"id":"real-007","source":"P3","viewport":375,"state":"baseline","rule":"S4","selector":".logo > span","label":true,"note":"logo squeezed to 22px wide"}
-{"id":"real-008","source":"P3","viewport":375,"state":"baseline","rule":"S4","selector":".status-chip > .status-text","label":true,"note":"stale: status chip not present in the current logged snapshot","stale":true}
+{"id":"real-006","source":"P3","viewport":375,"state":"products","rule":"S5","selector":".product-actions > button > span","label":true,"note":"375 product button S5 absent; 1280 snapshot has count 862, suspected engine miss"}
+{"id":"real-007","source":"P3","viewport":375,"state":"products","rule":"S4","selector":".logo > span","label":true,"note":"logo S4 is on the logged products route; state corrected from baseline"}
+{"id":"real-008","source":"P4","viewport":375,"state":"baseline","rule":"S4","selector":".status-chip > .status-text","label":true,"note":"source corrected from P3 to P4; status chip evidence in P4 raw"}
 {"id":"real-009","source":"P4","viewport":375,"state":"baseline","rule":"S5","selector":".login-footer > p","label":true,"note":"contrast 2.43:1"}
 {"id":"real-010","source":"P4","viewport":375,"state":"click:login","rule":"S5","selector":".el-form-item__error","label":true,"note":"contrast 2.78:1, 2 instances"}
 {"id":"real-011","source":"P4","viewport":375,"state":"click:login","rule":"S5","selector":".el-message__content","label":true,"note":"contrast 2.61:1"}

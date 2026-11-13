@@ -25,8 +25,8 @@
     "selector": "div.login-page > div.login-card > div.login-tabs > button.tab"
   },
   "real-006": {
-    "type": "stale",
-    "note": "stale: first product buttons are disabled/absent in the current logged snapshot"
+    "type": "scan",
+    "note": "375 product button S5 absent; 1280 snapshot has count 862, suspected engine miss"
   },
   "real-007": {
     "type": "raw",
@@ -34,8 +34,9 @@
     "selector": "header.el-header.navbar > div.navbar-content > div.logo > span"
   },
   "real-008": {
-    "type": "stale",
-    "note": "stale: status chip not present in the current logged snapshot"
+    "type": "raw",
+    "file": "P4-_.json",
+    "selector": "div.status-chip > span.status-text"
   },
   "real-009": {
     "type": "raw",

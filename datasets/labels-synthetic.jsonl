@@ -103,23 +103,23 @@
 {"id":"syn-103","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-13a","label":true,"synthetic":true,"note":"synthetic known defect"}
 {"id":"syn-104","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-14a","label":true,"synthetic":true,"note":"synthetic known defect"}
 {"id":"syn-105","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-15a","label":true,"synthetic":true,"note":"synthetic known defect"}
-{"id":"synn-001","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-sticky-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-002","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-disabled-small","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-003","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1c","selector":"#neg-sr-only","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-004","source":"SYN-N","viewport":375,"state":"baseline","rule":"S5","selector":"#neg-gradient","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-005","source":"SYN-N","viewport":375,"state":"baseline","rule":"H3","selector":"#neg-closed","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-006","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1c","selector":"#neg-th","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-007","source":"SYN-N","viewport":375,"state":"baseline","rule":"S2","selector":"#neg-wrap-a","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-008","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1","selector":"#neg-scroller","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-009","source":"SYN-N","viewport":375,"state":"baseline","rule":"H3","selector":"#neg-glow","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-010","source":"SYN-N","viewport":375,"state":"baseline","rule":"S6","selector":"#neg-ellipsis","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-011","source":"SYN-N","viewport":375,"state":"baseline","rule":"H2","selector":"#neg-clamp","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-012","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-fieldset-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-013","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-disabled-covered","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-014","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-24px","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-015","source":"SYN-N","viewport":375,"state":"baseline","rule":"S5","selector":"#neg-high-contrast","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-016","source":"SYN-N","viewport":375,"state":"baseline","rule":"S4","selector":"#neg-vertical","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-017","source":"SYN-N","viewport":375,"state":"baseline","rule":"S8","selector":"#neg-anchor","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-018","source":"SYN-N","viewport":375,"state":"baseline","rule":"S3","selector":"#neg-toast","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-019","source":"SYN-N","viewport":375,"state":"baseline","rule":"H5","selector":"#neg-closed","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
-{"id":"synn-020","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-sticky-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-001","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-sticky-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-002","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-disabled-small","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-003","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1c","selector":"#neg-sr-only","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-004","source":"SYN-N","viewport":375,"state":"baseline","rule":"S5","selector":"#neg-gradient","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-005","source":"SYN-N","viewport":375,"state":"baseline","rule":"H3","selector":"#neg-closed","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-006","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1c","selector":"#neg-th","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-007","source":"SYN-N","viewport":375,"state":"baseline","rule":"S2","selector":"#neg-wrap-a","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-008","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1","selector":"#neg-scroller","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-009","source":"SYN-N","viewport":375,"state":"baseline","rule":"H3","selector":"#neg-glow","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-010","source":"SYN-N","viewport":375,"state":"baseline","rule":"S6","selector":"#neg-ellipsis","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-011","source":"SYN-N","viewport":375,"state":"baseline","rule":"H2","selector":"#neg-clamp","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-012","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-fieldset-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-013","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-disabled-covered","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-014","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-24px","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-015","source":"SYN-N","viewport":375,"state":"baseline","rule":"S5","selector":"#neg-high-contrast","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-016","source":"SYN-N","viewport":375,"state":"baseline","rule":"S4","selector":"#neg-vertical","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-017","source":"SYN-N","viewport":375,"state":"baseline","rule":"S8","selector":"#neg-anchor","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-018","source":"SYN-N","viewport":375,"state":"baseline","rule":"S3","selector":"#neg-toast","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-019","source":"SYN-N","viewport":375,"state":"baseline","rule":"H5","selector":"#neg-closed","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}
+{"id":"synn-020","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-sticky-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt","expectsAbsent":true}

@@ -195,8 +195,9 @@ export function measure() {
         if (underTransform(el)) return false;
         if (inHorizontalScroller(el)) return false;
         // Table headers are clipped to the horizontal scroll position of the
-        // body on purpose (Element Plus / native table wrappers).
-        if (el.closest('table') || el.matches('table, thead, tbody, tr, th, td') || el.querySelector('table')) return false;
+        // body on purpose (Element Plus / native table wrappers). Only skip the
+        // table itself, not an arbitrary card that happens to contain a table.
+        if (el.closest('table') || el.closest('[class*="el-table"]') || el.matches('table, thead, tbody, tr, th, td')) return false;
         if (el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE)) return false;
         const clip = clippingAncestor(el);
         if (!clip) return false;
@@ -490,9 +491,9 @@ export function measure() {
       });
       if (row) {
         row.items.push(el);
-        row.top = Math.min(row.top, r.top);
-        row.bottom = Math.max(row.bottom, r.bottom);
       } else {
+        // Keep the first row's bounds; expanding them lets a later wrapped row
+        // absorb further rows and produces cross-row S2 false positives.
         rows.push({ top: r.top, bottom: r.bottom, items: [el] });
       }
     }

@@ -175,21 +175,45 @@ async function callTool(name, args, signal = null) {
       S8: 'compare scroll-margin-top with the sticky header height',
       P1: 're-run the perf sample',
     };
+    const evidenceByRule = {
+      H1: ['documentElement.scrollWidth', 'clientWidth'],
+      H1c: ['scrollWidth', 'clientWidth', 'computed overflow-x'],
+      H2: ['scrollHeight', 'clientHeight', 'line-clamp'],
+      H3: ['fixed rect', 'viewport rect'],
+      H4: ['elementsFromPoint'],
+      'H4-partial': ['elementsFromPoint'],
+      H5: ['interactive rects'],
+      S1: ['document.fonts'],
+      S2: ['button rects', 'visual row grouping'],
+      S3: ['text rects'],
+      S4: ['writing-mode', 'clientWidth', 'font-size'],
+      S5: ['computed color', 'background color'],
+      S6: ['scrollWidth', 'clientWidth', 'title/aria-label'],
+      S7: ['target rect', 'label rect'],
+      S8: ['target rect', 'sticky header rect'],
+      P1: ['requestAnimationFrame', 'longtask entries'],
+    };
+    const safeSelector = (s) => String(s || '').replace(/[\u0000-\u001f\u007f]/g, ' ').slice(0, 200);
     const candidates = results.flatMap((r) => r.findings.map((f) => ({
       viewport: r.viewport,
       state: r.state ?? 'baseline',
       kind: f.rule,
-      severity: f.severity,
-      selector: f.selector,
+      engineSeverity: f.severity,
+      selector: safeSelector(f.selector),
       bbox: f.rect,
-      count: f.count ?? 1,
-      confidence: f.severity === 'error' ? 0.8 : 0.55,
-      evidence: ['dom', 'computed-style'],
+      count: f.count ?? null,
+      message: f.message,
+      evidence: evidenceByRule[f.rule] || [],
+      requiresVerification: true,
       suggestedCheck: suggest[f.rule] || 'verify in the DOM and screenshot',
     })));
     return JSON.stringify({
       tool: 'ui_probe',
-      note: 'Evidence only. Verify each candidate in the DOM/screenshot and decide; confidence is not a verdict.',
+      schemaVersion: 1,
+      note: 'Evidence only. Verify each candidate in the DOM/screenshot; engineSeverity is not a verdict and confidence is intentionally omitted.',
+      url: args.url,
+      viewports: results.map((r) => r.viewport),
+      measured: results.map((r) => ({ viewport: r.viewport, state: r.state ?? 'baseline', error: r.error || null })),
       candidates,
       abstain: results.some((r) => r.error),
       limitations: results.filter((r) => r.error).map((r) => `@${r.viewport} ${r.state}: ${r.error}`),
@@ -201,9 +225,20 @@ async function callTool(name, args, signal = null) {
     return `${text}\nbaseline saved: ${reportPath}`;
   }
   if (name === 'ui_verify') {
-    const { readFileSync } = await import('node:fs');
-    const baseline = JSON.parse(readFileSync(args.baseline, 'utf8'));
-    if (baseline.url && toUrl(baseline.url) !== toUrl(args.url)) {
+    const { readFileSync, realpathSync, statSync } = await import('node:fs');
+    const real = realpathSync(args.baseline);
+    if (!real.toLowerCase().startsWith(tmpdir().toLowerCase()) || !/ui-guard-.*\.json$/i.test(real)) {
+      throw new Error('baseline must be a ui-guard report inside the system temp directory');
+    }
+    if (statSync(real).size > 20 * 1024 * 1024) throw new Error('baseline is too large');
+    let baseline;
+    try {
+      baseline = JSON.parse(readFileSync(real, 'utf8'));
+    } catch {
+      throw new Error('baseline is not a valid ui-guard report');
+    }
+    if (!baseline.url) throw new Error('baseline has no url');
+    if (toUrl(baseline.url) !== toUrl(args.url)) {
       throw new Error(`baseline url mismatch: ${baseline.url} vs ${args.url}`);
     }
     const { added, fixed, persisting, skipped } = compare(baseline.results, results);
@@ -275,6 +310,25 @@ export function serveMcp() {
           send({ id, error: { code: -32602, message: err.message } });
         } else if (err.code === 'METHOD_NOT_FOUND') {
           send({ id, error: { code: -32601, message: err.message } });
+        } else if (msg.params?.name === 'ui_probe') {
+          // Keep the probe contract JSON even when measurement itself fails.
+          send({
+            id,
+            result: {
+              content: [{
+                type: 'text',
+                text: JSON.stringify({
+                  tool: 'ui_probe',
+                  schemaVersion: 1,
+                  abstain: true,
+                  candidates: [],
+                  measured: [],
+                  limitations: [err.message],
+                }),
+              }],
+              isError: true,
+            },
+          });
         } else {
           send({ id, result: { content: [{ type: 'text', text: `ui-guard error: ${err.message}` }], isError: true } });
         }

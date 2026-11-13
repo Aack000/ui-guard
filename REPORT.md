@@ -1,8 +1,20 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.35（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.36（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.35）
+## 最新结果（2026-11-13，v0.0.36）
+
+Review 后的评估/工具契约修复：
+
+- **评估匹配**：不再用 `includes/endsWith`；改为 selector 后缀按段 `tag/id/class` 精确匹配，强制 `state`，一个 raw finding 只能匹配一个 label；失败/未测 scope 不计 TN。
+- **真实数据修正**：`real-008` source 从 P3 改为 P4（status-chip 证据在 P4）；`real-007` state 改为 `products`。当前真实 **TP 14 / FN 2 / TN 0**，recall **0.875**；**precision 不再宣称 1.0**（TN=0，7 条负样本因未证明元素存在而不计入）。2 个 FN 为 `real-006`（375 商品按钮 S5 缺失，1280 有 count 862，疑似引擎漏报）与 `real-009`（P4 footer S5 缺失）。
+- **B0 `ui_probe`**：删除伪 `confidence`；`evidence` 改按规则列出真实测量来源；每个候选加 `requiresVerification: true`；补 `schemaVersion/url/viewports/measured/abstain/limitations`；扫描失败也返回同一 JSON 契约（`abstain:true`）。
+- **安全**：`ui_verify` baseline 限制在系统临时目录、`ui-guard-*.json`、≤20MB，解析失败不回显文件内容；selector 截断并剥离控制字符。
+- **规则**：H1c 表格豁免收窄（不再跳过含 table 的整张卡片）；S2 行分组不再扩张包围盒。
+- 验证：fixtures **69/69**、MCP **12/12**、评估 148/148 覆盖（141 可评估 + 7 负样本未验证）；`unlabeledFindings=26` 仍待人工归类。
+- 未修：S5 图片/兄弟节点背景合成、H1c `docOverflow` 时内层裁剪、H4 滚动容器/sticky 侧栏、负样本元素存在性证明。
+
+## 上一阶段结果（2026-11-13，v0.0.35）
 
 A 标签归因 + B0 盲测：
 

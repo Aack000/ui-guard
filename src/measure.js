@@ -148,7 +148,8 @@ export function measure() {
 
   // ---- H1: page-level horizontal overflow ----
   const doc = document.documentElement;
-  if (doc.scrollWidth > vw + EPS) {
+  const docOverflow = doc.scrollWidth > vw + EPS;
+  if (docOverflow) {
     const offenders = all
       .filter((el) => {
         const cs = getComputedStyle(el);
@@ -163,6 +164,32 @@ export function measure() {
     }
     if (offenders.length === 0) {
       report('H1', 'error', doc, `page overflows horizontally (doc ${doc.scrollWidth}px > viewport ${vw}px)`);
+    }
+  } else {
+    // overflow-x: hidden/clip can pull scrollWidth back to the viewport and
+    // silently hide content wider than the screen. Only inspect in-flow
+    // elements (no absolute/fixed/transform) that carry text or controls.
+    const rootHidden = /(hidden|clip)/.test(getComputedStyle(doc).overflowX)
+      || /(hidden|clip)/.test(getComputedStyle(document.body).overflowX);
+    if (rootHidden) {
+      const masked = all
+        .filter((el) => {
+          if (el === doc || el === document.body) return false;
+          const cs = getComputedStyle(el);
+          if (cs.position === 'fixed' || cs.position === 'absolute') return false;
+          if (cs.transform !== 'none') return false;
+          if (el.getAttribute('aria-hidden') === 'true') return false;
+          const r = el.getBoundingClientRect();
+          if (r.width <= 0 || r.height <= 0 || r.right <= vw + EPS) return false;
+          if (inHorizontalScroller(el)) return false;
+          if (el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE)) return false;
+          return true;
+        })
+        .sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right)
+        .slice(0, 5);
+      for (const el of masked) {
+        report('H1c', 'error', el, `content clipped horizontally by overflow-x: hidden (${Math.round(el.getBoundingClientRect().right)}px > viewport ${vw}px)`);
+      }
     }
   }
 

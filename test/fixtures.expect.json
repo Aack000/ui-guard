@@ -94,5 +94,8 @@
   },
   "persistent-modal.html": {
     "errorsAt": { "375": ["H4"] }
+  },
+  "hidden-overflow.html": {
+    "errorsAt": { "375": ["H1c"] }
   }
 }

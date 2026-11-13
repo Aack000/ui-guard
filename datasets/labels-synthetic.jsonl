@@ -1,0 +1,125 @@
+{"id":"syn-001","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-1","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-002","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-2","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-003","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-3","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-004","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-4","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-005","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-5","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-006","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-6","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-007","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-7","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-008","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-8","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-009","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-9","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-010","source":"SYN-P","viewport":375,"state":"baseline","rule":"H1c","selector":"#hclip-10","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-011","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-1","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-012","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-2","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-013","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-3","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-014","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-4","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-015","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-5","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-016","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-6","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-017","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-7","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-018","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-8","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-019","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-9","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-020","source":"SYN-P","viewport":375,"state":"baseline","rule":"H2","selector":"#vclip-10","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-021","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-1","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-022","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-2","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-023","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-3","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-024","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-4","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-025","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-5","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-026","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-6","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-027","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-7","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-028","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-8","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-029","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-9","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-030","source":"SYN-P","viewport":375,"state":"baseline","rule":"H3","selector":"#fix-10","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-031","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-1","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-032","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-2","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-033","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-3","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-034","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-4","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-035","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-5","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-036","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-6","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-037","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-7","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-038","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-8","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-039","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-9","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-040","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-10","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-041","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-11","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-042","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-12","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-043","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-13","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-044","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-14","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-045","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-15","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-046","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-16","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-047","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-17","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-048","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-18","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-049","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-19","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-050","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4","selector":"#cov-20","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-051","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-1a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-052","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-2a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-053","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-3a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-054","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-4a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-055","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-5a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-056","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-6a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-057","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-7a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-058","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-8a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-059","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-9a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-060","source":"SYN-P","viewport":375,"state":"baseline","rule":"H4-partial","selector":"#pair-10a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-061","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-1a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-062","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-2a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-063","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-3a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-064","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-4a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-065","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-5a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-066","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-6a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-067","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-7a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-068","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-8a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-069","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-9a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-070","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-10a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-071","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-11a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-072","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-12a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-073","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-13a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-074","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-14a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-075","source":"SYN-P","viewport":375,"state":"baseline","rule":"H5","selector":"#pair-15a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-076","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-1a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-077","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-2a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-078","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-3a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-079","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-4a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-080","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-5a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-081","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-6a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-082","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-7a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-083","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-8a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-084","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-9a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-085","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-10a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-086","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-11a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-087","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-12a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-088","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-13a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-089","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-14a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-090","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#pair-15a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-091","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-1a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-092","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-2a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-093","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-3a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-094","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-4a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-095","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-5a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-096","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-6a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-097","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-7a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-098","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-8a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-099","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-9a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-100","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-10a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-101","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-11a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-102","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-12a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-103","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-13a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-104","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-14a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"syn-105","source":"SYN-P","viewport":375,"state":"baseline","rule":"S2","selector":"#row-15a","label":true,"synthetic":true,"note":"synthetic known defect"}
+{"id":"synn-001","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-sticky-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-002","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-disabled-small","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-003","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1c","selector":"#neg-sr-only","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-004","source":"SYN-N","viewport":375,"state":"baseline","rule":"S5","selector":"#neg-gradient","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-005","source":"SYN-N","viewport":375,"state":"baseline","rule":"H3","selector":"#neg-closed","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-006","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1c","selector":"#neg-th","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-007","source":"SYN-N","viewport":375,"state":"baseline","rule":"S2","selector":"#neg-wrap-a","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-008","source":"SYN-N","viewport":375,"state":"baseline","rule":"H1","selector":"#neg-scroller","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-009","source":"SYN-N","viewport":375,"state":"baseline","rule":"H3","selector":"#neg-glow","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-010","source":"SYN-N","viewport":375,"state":"baseline","rule":"S6","selector":"#neg-ellipsis","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-011","source":"SYN-N","viewport":375,"state":"baseline","rule":"H2","selector":"#neg-clamp","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-012","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-fieldset-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-013","source":"SYN-N","viewport":375,"state":"baseline","rule":"H4","selector":"#neg-disabled-covered","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-014","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-24px","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-015","source":"SYN-N","viewport":375,"state":"baseline","rule":"S5","selector":"#neg-high-contrast","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-016","source":"SYN-N","viewport":375,"state":"baseline","rule":"S4","selector":"#neg-vertical","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-017","source":"SYN-N","viewport":375,"state":"baseline","rule":"S8","selector":"#neg-anchor","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-018","source":"SYN-N","viewport":375,"state":"baseline","rule":"S3","selector":"#neg-toast","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-019","source":"SYN-N","viewport":375,"state":"baseline","rule":"H5","selector":"#neg-closed","label":false,"synthetic":true,"note":"intentional design / should be exempt"}
+{"id":"synn-020","source":"SYN-N","viewport":375,"state":"baseline","rule":"S7","selector":"#neg-sticky-btn","label":false,"synthetic":true,"note":"intentional design / should be exempt"}

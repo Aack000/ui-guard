@@ -1,0 +1,296 @@
+{
+  "labels": {
+    "real": 23,
+    "synthetic": 125,
+    "total": 148
+  },
+  "coverage": {
+    "rawScopes": 22,
+    "evaluated": 143,
+    "uncovered": 5,
+    "realEvidence": {
+      "total": 23,
+      "raw": 8,
+      "note": 15
+    }
+  },
+  "metrics": {
+    "real": {
+      "precision": 1,
+      "recall": 0.571,
+      "tp": 8,
+      "fn": 6,
+      "fp": 0,
+      "tn": 4
+    },
+    "synthetic": {
+      "precision": 1,
+      "recall": 1,
+      "tp": 105,
+      "fn": 0,
+      "fp": 0,
+      "tn": 20
+    }
+  },
+  "byRule": {
+    "S5": {
+      "real": {
+        "precision": 1,
+        "recall": 0.5,
+        "tp": 5,
+        "fn": 5,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2
+      }
+    },
+    "S4": {
+      "real": {
+        "precision": 1,
+        "recall": 0.5,
+        "tp": 1,
+        "fn": 1,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
+    "H3": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 10,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2
+      }
+    },
+    "H1c": {
+      "real": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 10,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2
+      }
+    },
+    "S6": {
+      "real": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
+    "S2": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 30,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
+    "H2": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 10,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
+    "H4": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 20,
+        "fn": 0,
+        "fp": 0,
+        "tn": 3
+      }
+    },
+    "H4-partial": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 10,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      }
+    },
+    "H5": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 15,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
+    "S7": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 3
+      }
+    },
+    "H1": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
+    "S8": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
+    "S3": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0
+      },
+      "synthetic": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    }
+  },
+  "uncoveredIds": [
+    "real-010",
+    "real-011",
+    "real-103",
+    "real-104",
+    "real-105"
+  ]
+}

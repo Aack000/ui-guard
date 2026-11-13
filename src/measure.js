@@ -342,7 +342,7 @@ export function measure() {
     // fixed overlay this is reachable, so those sample points are not "covered".
     const underStickyHeader = (node) => {
       for (let n = node; n; n = n.parentElement) {
-        if (getComputedStyle(n).position === 'sticky' && n.getBoundingClientRect().top <= 1) return true;
+        if (getComputedStyle(n).position === 'sticky' && n.getBoundingClientRect().top < vh * 0.4) return true;
       }
       return false;
     };
@@ -486,7 +486,7 @@ export function measure() {
       const r = el.getBoundingClientRect();
       const row = rows.find((x) => {
         const overlap = Math.min(r.bottom, x.bottom) - Math.max(r.top, x.top);
-        return overlap > Math.min(r.height, x.height) * 0.5;
+        return overlap > Math.min(r.height, x.bottom - x.top) * 0.5;
       });
       if (row) {
         row.items.push(el);

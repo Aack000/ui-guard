@@ -76,11 +76,14 @@ claude mcp add -s user ui-guard -- node <绝对路径>/bin/ui-guard.js mcp
 ## 测试
 
 ```bash
-npm test                 # 44 项：多视口断言 + 交互状态 + 回归对比 + 新规则
+npm test                 # 69 项：多视口断言 + 交互状态 + 回归对比 + 新规则
+npm run eval             # 真实 23 + 合成 125 条标签的命中 / 误报 / 覆盖评估
 node test/run-mcp.js     # MCP stdio 端到端
 ```
 
 fixtures 覆盖：正常页的刻意设计（badge 重叠、省略号、line-clamp、横向滚动、关闭态抽屉、装饰光晕、竖排文字、模态背景、sr-only、fieldset disabled、透明渐变文字、transform 关闭抽屉）、各类硬错误、交互打开态、启动遮罩、低对比度、长任务。
+
+标签：`datasets/labels.jsonl`（真实 23 条）、`datasets/labels-synthetic.jsonl`（合成 125 条）、`datasets/evidence.json`；原始扫描报告在 `datasets/raw/`（本地，不提交）。
 
 ## 设计原则
 

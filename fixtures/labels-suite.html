@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Labeled synthetic defects</title><style>*{box-sizing:border-box}
+body{margin:0;padding:16px;font-family:system-ui,sans-serif}
+.grid{display:flex;flex-wrap:wrap;gap:12px}
+.case,.pair{position:relative;width:160px;height:48px;border:1px solid #dddddd}
+.cover{position:absolute;inset:0;background:#eeeeee;z-index:2}
+button{min-height:26px;padding:4px 8px}
+.pair button:last-child{position:absolute;left:24px;top:10px}
+.row{display:flex;align-items:flex-start;gap:8px;margin:8px 0}
+.row .tall{margin-top:8px}
+.clip{width:80px;overflow-x:hidden;white-space:nowrap;border:1px solid #cccccc}
+.vclip{height:20px;overflow-y:hidden;border:1px solid #cccccc;line-height:20px}
+.fixed{position:fixed;right:-260px;top:20px;width:240px;background:#ffffff;padding:8px;border:1px solid #cccccc}
+</style></head><body>
+<div class="grid">
+<div class="case"><button type="button" id="cov-1">覆盖按钮 1</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-2">覆盖按钮 2</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-3">覆盖按钮 3</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-4">覆盖按钮 4</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-5">覆盖按钮 5</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-6">覆盖按钮 6</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-7">覆盖按钮 7</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-8">覆盖按钮 8</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-9">覆盖按钮 9</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-10">覆盖按钮 10</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-11">覆盖按钮 11</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-12">覆盖按钮 12</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-13">覆盖按钮 13</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-14">覆盖按钮 14</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-15">覆盖按钮 15</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-16">覆盖按钮 16</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-17">覆盖按钮 17</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-18">覆盖按钮 18</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-19">覆盖按钮 19</button><span class="cover" aria-hidden="true"></span></div>
+<div class="case"><button type="button" id="cov-20">覆盖按钮 20</button><span class="cover" aria-hidden="true"></span></div>
+<div class="pair"><button type="button" id="pair-1a">重叠 A1</button><button type="button" id="pair-1b">重叠 B1</button></div>
+<div class="pair"><button type="button" id="pair-2a">重叠 A2</button><button type="button" id="pair-2b">重叠 B2</button></div>
+<div class="pair"><button type="button" id="pair-3a">重叠 A3</button><button type="button" id="pair-3b">重叠 B3</button></div>
+<div class="pair"><button type="button" id="pair-4a">重叠 A4</button><button type="button" id="pair-4b">重叠 B4</button></div>
+<div class="pair"><button type="button" id="pair-5a">重叠 A5</button><button type="button" id="pair-5b">重叠 B5</button></div>
+<div class="pair"><button type="button" id="pair-6a">重叠 A6</button><button type="button" id="pair-6b">重叠 B6</button></div>
+<div class="pair"><button type="button" id="pair-7a">重叠 A7</button><button type="button" id="pair-7b">重叠 B7</button></div>
+<div class="pair"><button type="button" id="pair-8a">重叠 A8</button><button type="button" id="pair-8b">重叠 B8</button></div>
+<div class="pair"><button type="button" id="pair-9a">重叠 A9</button><button type="button" id="pair-9b">重叠 B9</button></div>
+<div class="pair"><button type="button" id="pair-10a">重叠 A10</button><button type="button" id="pair-10b">重叠 B10</button></div>
+<div class="pair"><button type="button" id="pair-11a">重叠 A11</button><button type="button" id="pair-11b">重叠 B11</button></div>
+<div class="pair"><button type="button" id="pair-12a">重叠 A12</button><button type="button" id="pair-12b">重叠 B12</button></div>
+<div class="pair"><button type="button" id="pair-13a">重叠 A13</button><button type="button" id="pair-13b">重叠 B13</button></div>
+<div class="pair"><button type="button" id="pair-14a">重叠 A14</button><button type="button" id="pair-14b">重叠 B14</button></div>
+<div class="pair"><button type="button" id="pair-15a">重叠 A15</button><button type="button" id="pair-15b">重叠 B15</button></div>
+<div class="row"><button type="button" id="row-1a">左 1</button><button type="button" id="row-1b" class="tall">右 1</button></div>
+<div class="row"><button type="button" id="row-2a">左 2</button><button type="button" id="row-2b" class="tall">右 2</button></div>
+<div class="row"><button type="button" id="row-3a">左 3</button><button type="button" id="row-3b" class="tall">右 3</button></div>
+<div class="row"><button type="button" id="row-4a">左 4</button><button type="button" id="row-4b" class="tall">右 4</button></div>
+<div class="row"><button type="button" id="row-5a">左 5</button><button type="button" id="row-5b" class="tall">右 5</button></div>
+<div class="row"><button type="button" id="row-6a">左 6</button><button type="button" id="row-6b" class="tall">右 6</button></div>
+<div class="row"><button type="button" id="row-7a">左 7</button><button type="button" id="row-7b" class="tall">右 7</button></div>
+<div class="row"><button type="button" id="row-8a">左 8</button><button type="button" id="row-8b" class="tall">右 8</button></div>
+<div class="row"><button type="button" id="row-9a">左 9</button><button type="button" id="row-9b" class="tall">右 9</button></div>
+<div class="row"><button type="button" id="row-10a">左 10</button><button type="button" id="row-10b" class="tall">右 10</button></div>
+<div class="row"><button type="button" id="row-11a">左 11</button><button type="button" id="row-11b" class="tall">右 11</button></div>
+<div class="row"><button type="button" id="row-12a">左 12</button><button type="button" id="row-12b" class="tall">右 12</button></div>
+<div class="row"><button type="button" id="row-13a">左 13</button><button type="button" id="row-13b" class="tall">右 13</button></div>
+<div class="row"><button type="button" id="row-14a">左 14</button><button type="button" id="row-14b" class="tall">右 14</button></div>
+<div class="row"><button type="button" id="row-15a">左 15</button><button type="button" id="row-15b" class="tall">右 15</button></div>
+<div class="clip" id="hclip-1">这是一段非常长的横向文本 1，用于测试横向裁剪</div>
+<div class="clip" id="hclip-2">这是一段非常长的横向文本 2，用于测试横向裁剪</div>
+<div class="clip" id="hclip-3">这是一段非常长的横向文本 3，用于测试横向裁剪</div>
+<div class="clip" id="hclip-4">这是一段非常长的横向文本 4，用于测试横向裁剪</div>
+<div class="clip" id="hclip-5">这是一段非常长的横向文本 5，用于测试横向裁剪</div>
+<div class="clip" id="hclip-6">这是一段非常长的横向文本 6，用于测试横向裁剪</div>
+<div class="clip" id="hclip-7">这是一段非常长的横向文本 7，用于测试横向裁剪</div>
+<div class="clip" id="hclip-8">这是一段非常长的横向文本 8，用于测试横向裁剪</div>
+<div class="clip" id="hclip-9">这是一段非常长的横向文本 9，用于测试横向裁剪</div>
+<div class="clip" id="hclip-10">这是一段非常长的横向文本 10，用于测试横向裁剪</div>
+<div class="vclip" id="vclip-1">第一行 1<br>第二行 1<br>第三行 1</div>
+<div class="vclip" id="vclip-2">第一行 2<br>第二行 2<br>第三行 2</div>
+<div class="vclip" id="vclip-3">第一行 3<br>第二行 3<br>第三行 3</div>
+<div class="vclip" id="vclip-4">第一行 4<br>第二行 4<br>第三行 4</div>
+<div class="vclip" id="vclip-5">第一行 5<br>第二行 5<br>第三行 5</div>
+<div class="vclip" id="vclip-6">第一行 6<br>第二行 6<br>第三行 6</div>
+<div class="vclip" id="vclip-7">第一行 7<br>第二行 7<br>第三行 7</div>
+<div class="vclip" id="vclip-8">第一行 8<br>第二行 8<br>第三行 8</div>
+<div class="vclip" id="vclip-9">第一行 9<br>第二行 9<br>第三行 9</div>
+<div class="vclip" id="vclip-10">第一行 10<br>第二行 10<br>第三行 10</div>
+<div class="fixed" id="fix-1">越界固定浮层 1</div>
+<div class="fixed" id="fix-2">越界固定浮层 2</div>
+<div class="fixed" id="fix-3">越界固定浮层 3</div>
+<div class="fixed" id="fix-4">越界固定浮层 4</div>
+<div class="fixed" id="fix-5">越界固定浮层 5</div>
+<div class="fixed" id="fix-6">越界固定浮层 6</div>
+<div class="fixed" id="fix-7">越界固定浮层 7</div>
+<div class="fixed" id="fix-8">越界固定浮层 8</div>
+<div class="fixed" id="fix-9">越界固定浮层 9</div>
+<div class="fixed" id="fix-10">越界固定浮层 10</div>
+</div>
+</body></html>

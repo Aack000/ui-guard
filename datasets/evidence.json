@@ -1,0 +1,102 @@
+{
+  "real-001": {
+    "type": "raw",
+    "file": "P1-_login.json",
+    "selector": "div.login > div.login-panel > div.login-header > p.login-desc"
+  },
+  "real-002": {
+    "type": "raw",
+    "file": "P1-_login.json",
+    "selector": "div.login > div.login-panel > div.login-divider > span"
+  },
+  "real-003": {
+    "type": "raw",
+    "file": "P2-_login.json",
+    "selector": "div.login-page > div.login-card > div.login-header > h1"
+  },
+  "real-004": {
+    "type": "raw",
+    "file": "P2-_login.json",
+    "selector": "div.login-page > div.login-card > div.login-header > p"
+  },
+  "real-005": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-006": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-007": {
+    "type": "raw",
+    "file": "P3-logged.json",
+    "selector": "header.el-header.navbar > div.navbar-content > div.logo > span"
+  },
+  "real-008": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-009": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-010": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-011": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-101": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-102": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-103": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-104": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-105": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-018": {
+    "type": "raw",
+    "file": "P3-logged.json",
+    "selector": "div.navbar-wrapper > header.el-header.navbar > div.navbar-content > nav.nav-links"
+  },
+  "real-019": {
+    "type": "raw",
+    "file": "P3-logged.json",
+    "selector": "div.el-card.is-always-shadow > div.el-card__body > div.product-info > h3"
+  },
+  "real-020": {
+    "type": "raw",
+    "file": "P3-logged.json",
+    "selector": "div.el-select__wrapper.el-tooltip__trigger > div.el-select__selection > div.el-select__selected-item.el-select__placeholder > span"
+  },
+  "real-021": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-022": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-106": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  },
+  "real-107": {
+    "type": "note",
+    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+  }
+}

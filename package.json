@@ -9,7 +9,8 @@
   },
   "scripts": {
     "scan": "node bin/ui-guard.js",
-    "test": "node test/run-fixtures.js"
+    "test": "node test/run-fixtures.js",
+    "eval": "node test/evaluate.js"
   },
   "dependencies": {
     "playwright": "^1.49.0"

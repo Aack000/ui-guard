@@ -74,6 +74,7 @@ export async function scan(url, {
             }
             results.push(result);
           } catch (err) {
+            if (signal?.aborted) throw abortError();
             results.push({ viewport: width, state: state.name, findings: [], error: err.message.split('\n')[0] });
             break; // later states are unreliable after a failed action
           }
@@ -81,13 +82,14 @@ export async function scan(url, {
       } catch (err) {
         results.push({ viewport: width, state: 'baseline', findings: [], error: `navigation failed: ${err.message.split('\n')[0]}` });
       } finally {
-        await page.close();
+        await page.close().catch(() => {});
       }
     }
   } finally {
     signal?.removeEventListener('abort', onAbort);
-    await browser.close();
+    await browser.close().catch(() => {});
   }
+  if (signal?.aborted) throw abortError();
   return results;
 }
 

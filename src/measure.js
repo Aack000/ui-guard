@@ -167,29 +167,43 @@ export function measure() {
     }
   } else {
     // overflow-x: hidden/clip can pull scrollWidth back to the viewport and
-    // silently hide content wider than the screen. Only inspect in-flow
-    // elements (no absolute/fixed/transform) that carry text or controls.
-    const rootHidden = /(hidden|clip)/.test(getComputedStyle(doc).overflowX)
-      || /(hidden|clip)/.test(getComputedStyle(document.body).overflowX);
-    if (rootHidden) {
-      const masked = all
-        .filter((el) => {
-          if (el === doc || el === document.body) return false;
-          const cs = getComputedStyle(el);
-          if (cs.position === 'fixed' || cs.position === 'absolute') return false;
-          if (cs.transform !== 'none') return false;
-          if (el.getAttribute('aria-hidden') === 'true') return false;
-          const r = el.getBoundingClientRect();
-          if (r.width <= 0 || r.height <= 0 || r.right <= vw + EPS) return false;
-          if (inHorizontalScroller(el)) return false;
-          if (el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE)) return false;
-          return true;
-        })
-        .sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right)
-        .slice(0, 5);
-      for (const el of masked) {
-        report('H1c', 'error', el, `content clipped horizontally by overflow-x: hidden (${Math.round(el.getBoundingClientRect().right)}px > viewport ${vw}px)`);
+    // silently hide content wider than the screen. Inspect elements whose
+    // nearest clipping ancestor cuts them off; ignore off-right slides and
+    // anything moved by a transform/filter.
+    const underTransform = (el) => {
+      for (let n = el; n; n = n.parentElement) {
+        const cs = getComputedStyle(n);
+        if (cs.transform !== 'none' || cs.filter !== 'none') return true;
       }
+      return false;
+    };
+    const clippingAncestor = (el) => {
+      for (let n = el.parentElement; n; n = n.parentElement) {
+        if (/(hidden|clip)/.test(getComputedStyle(n).overflowX)) return n;
+      }
+      return null;
+    };
+    const masked = all
+      .filter((el) => {
+        if (el === doc || el === document.body) return false;
+        const cs = getComputedStyle(el);
+        if (cs.position === 'fixed' || cs.position === 'absolute') return false;
+        if (cs.display === 'inline' || cs.display === 'inline-block') return false;
+        const r = el.getBoundingClientRect();
+        if (r.width <= 0 || r.height <= 0 || r.left >= vw) return false;
+        if (el.getAttribute('aria-hidden') === 'true') return false;
+        if (underTransform(el)) return false;
+        if (inHorizontalScroller(el)) return false;
+        if (el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE)) return false;
+        const clip = clippingAncestor(el);
+        if (!clip) return false;
+        const cr = clip.getBoundingClientRect();
+        return r.right > cr.right + EPS;
+      })
+      .sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right)
+      .slice(0, 5);
+    for (const el of masked) {
+      report('H1c', 'error', el, `content clipped horizontally by overflow-x: hidden (${Math.round(el.getBoundingClientRect().right)}px > viewport ${vw}px)`);
     }
   }
 
@@ -273,13 +287,16 @@ export function measure() {
 
   // ---- H4: interactive element not clickable ----
   // If a modal dialog is open, background inertness is intentional: only check inside it.
-  const modal = all.find((el) => {
+  const modalCandidates = all.filter((el) => {
     if (el.getAttribute('aria-modal') !== 'true') return false;
     // A persistent drawer hidden by transform is not an active modal: if it
     // were, H4/H5/S3 would only inspect that off-screen subtree.
     const r = el.getBoundingClientRect();
     return r.right > 0 && r.left < vw && r.bottom > 0 && r.top < vh;
   });
+  // Later DOM order usually means the topmost dialog; do not lock onto a
+  // background drawer when a confirm dialog is open.
+  const modal = modalCandidates.length ? modalCandidates[modalCandidates.length - 1] : null;
   // Disabled controls are not expected to be clickable: coverage checks only
   // apply to enabled controls (a disabled "sold out" button may sit under a
   // badge or be clipped without being a defect).
@@ -480,7 +497,9 @@ export function measure() {
   // Fixed/sticky text layers (toast, tooltip, sticky header) intentionally sit
   // over page text; that is a design overlay, not a document-flow collision.
   const overlayChain = (el) => {
-    for (let n = el; n; n = n.parentElement) {
+    // The modal itself is fixed (dialog top layer); do not exempt its own
+    // contents, otherwise S3 never runs inside an open modal.
+    for (let n = el; n && n !== modal; n = n.parentElement) {
       const pos = getComputedStyle(n).position;
       if (pos === 'fixed' || pos === 'sticky') return true;
     }

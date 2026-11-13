@@ -26,7 +26,11 @@ function parseArgs(argv) {
   if (rest[0] === 'scan' || rest[0] === 'verify' || rest[0] === 'mcp') opts.command = rest.shift();
   for (let i = 0; i < rest.length; i++) {
     const arg = rest[i];
-    if (arg === '--url') opts.url = rest[++i];
+    if (arg === '--url') {
+      const value = rest[++i];
+      if (!value) { console.error('--url requires a value'); process.exit(2); }
+      opts.url = value;
+    }
     else if (arg === '--viewports') {
       const value = rest[++i];
       if (!value || !/^\d+(,\d+)*$/.test(value)) {
@@ -35,13 +39,23 @@ function parseArgs(argv) {
       }
       opts.viewports = value.split(',').map(Number);
     }
-    else if (arg === '--out') opts.out = rest[++i];
-    else if (arg === '--baseline') opts.baseline = rest[++i];
+    else if (arg === '--out') {
+      const value = rest[++i];
+      if (!value) { console.error('--out requires a value'); process.exit(2); }
+      opts.out = value;
+    }
+    else if (arg === '--baseline') {
+      const value = rest[++i];
+      if (!value) { console.error('--baseline requires a value'); process.exit(2); }
+      opts.baseline = value;
+    }
     else if (arg === '--json') opts.json = true;
     else if (arg === '--perf') opts.perf = true;
     else if (arg === '--no-wait-overlay') opts.waitForStartupOverlay = false;
     else if (arg === '--actions') {
-      opts.actions = rest[++i].split(';').filter(Boolean).map((s) => {
+      const value = rest[++i];
+      if (!value) { console.error('--actions requires a value'); process.exit(2); }
+      opts.actions = value.split(';').filter(Boolean).map((s) => {
         const idx = s.indexOf(':');
         return { type: s.slice(0, idx), selector: s.slice(idx + 1) };
       });

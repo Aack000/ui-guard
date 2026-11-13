@@ -1,8 +1,21 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.29（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.30（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.29）
+## 最新结果（2026-11-13，v0.0.30）
+
+独立 review 后的修复：
+
+- **取消**：`scan` 在所有退出路径归一化为 `AbortError`；`page.close` / `browser.close` 容错；MCP 在取消后**不写 baseline、不回包**。单视口取消实测 `scanResponded=false`、`pingResponded=true`。
+- **MCP 参数**：`actions` 只允许 `click|hover`、selector 必填；`viewports` 必须为正整数，未知类型不再能触发页面方法。
+- **H1c**：改为检查最近的 `overflow-x: hidden|clip` 祖先；排除右侧离屏、祖先 transform/filter、inline 元素；新增 `inner-hidden-overflow.html`（报 H1c）与 `swiper-hidden.html`（不报）。
+- **S3**：模态自身是 fixed，不再连带豁免模态内部文本。
+- **R9**：多个 `aria-modal` 同时可见时取最后一个（最顶层），不再锁到背景抽屉。
+- **测试**：`noWarns` 改为检查所有 findings（原来对 error 级规则恒真）；回归 **67/67**、MCP **6/6**。
+- **面板**：`readBody` 在 `aborted/close` 时 reject，安装中断不会永久卡住 `installing`；第二个标签页在安装中刷新不再渲染混合状态。
+- 未改：`docOverflow` 为真时的内层裁剪、滚出视口的真模态、H5 头像堆叠阈值，继续记录为已知边界。
+
+## 上一阶段结果（2026-11-13，v0.0.29）
 
 R2 隐藏溢出闭环：
 

@@ -1,101 +1,271 @@
 {
   "ok.html": {
-    "errorsAt": { "375": [], "1280": [] }
+    "errorsAt": {
+      "375": [],
+      "1280": []
+    }
   },
   "modal.html": {
-    "errorsAt": { "375": [], "1280": [] }
+    "errorsAt": {
+      "375": [],
+      "1280": []
+    }
   },
   "broken-overflow.html": {
-    "errorsAt": { "375": ["H1"], "1280": [] }
+    "errorsAt": {
+      "375": [
+        "H1"
+      ],
+      "1280": []
+    }
   },
   "broken-clip.html": {
-    "errorsAt": { "375": ["H1c", "H2"], "1280": ["H1c", "H2"] }
+    "errorsAt": {
+      "375": [
+        "H1c",
+        "H2"
+      ],
+      "1280": [
+        "H1c",
+        "H2"
+      ]
+    }
   },
   "broken-overlap.html": {
-    "errorsAt": { "375": ["H4", "H5"], "1280": ["H4", "H5"] }
+    "errorsAt": {
+      "375": [
+        "H4",
+        "H5"
+      ],
+      "1280": [
+        "H4",
+        "H5"
+      ]
+    }
   },
   "broken-popover.html": {
-    "errorsAt": { "375": ["H3"], "1280": ["H3"] }
+    "errorsAt": {
+      "375": [
+        "H3"
+      ],
+      "1280": [
+        "H3"
+      ]
+    }
   },
   "broken-font.html": {
-    "errorsAt": { "375": [] },
-    "warns": ["S1"]
+    "errorsAt": {
+      "375": []
+    },
+    "warns": [
+      "S1"
+    ]
   },
   "broken-squeeze.html": {
-    "errorsAt": { "375": [] },
-    "warns": ["S4"]
+    "errorsAt": {
+      "375": []
+    },
+    "warns": [
+      "S4"
+    ]
   },
   "ok-interactive.html": {
     "actions": [
-      { "type": "click", "selector": "#btn-drawer" },
-      { "type": "hover", "selector": "#btn-tip" }
+      {
+        "type": "click",
+        "selector": "#btn-drawer"
+      },
+      {
+        "type": "hover",
+        "selector": "#btn-tip"
+      }
     ],
     "errorsAt": {
-      "375": { "baseline": [], "click:#btn-drawer": [], "hover:#btn-tip": [] }
+      "375": {
+        "baseline": [],
+        "click:#btn-drawer": [],
+        "hover:#btn-tip": []
+      }
     }
   },
   "broken-interactive.html": {
     "actions": [
-      { "type": "click", "selector": "#btn-pop" },
-      { "type": "hover", "selector": "#btn-tip" }
+      {
+        "type": "click",
+        "selector": "#btn-pop"
+      },
+      {
+        "type": "hover",
+        "selector": "#btn-tip"
+      }
     ],
     "errorsAt": {
-      "375": { "baseline": [], "click:#btn-pop": ["H3"], "hover:#btn-tip": ["H3"] }
+      "375": {
+        "baseline": [],
+        "click:#btn-pop": [
+          "H3"
+        ],
+        "hover:#btn-tip": [
+          "H3"
+        ]
+      }
     }
   },
   "intro-overlay.html": {
-    "errorsAt": { "375": ["H1"], "1280": [] }
+    "errorsAt": {
+      "375": [
+        "H1"
+      ],
+      "1280": []
+    }
   },
   "broken-contrast.html": {
-    "errorsAt": { "375": [] },
-    "warns": ["S5"]
+    "errorsAt": {
+      "375": []
+    },
+    "warns": [
+      "S5"
+    ]
   },
   "broken-perf.html": {
-    "errorsAt": { "375": [] },
-    "warns": ["P1"],
+    "errorsAt": {
+      "375": []
+    },
+    "warns": [
+      "P1"
+    ],
     "perf": true
   },
   "modal-overlap.html": {
-    "actions": [{ "type": "click", "selector": "#open" }],
+    "actions": [
+      {
+        "type": "click",
+        "selector": "#open"
+      }
+    ],
     "errorsAt": {
-      "375": { "baseline": ["H5"], "click:#open": [] }
+      "375": {
+        "baseline": [
+          "H5"
+        ],
+        "click:#open": []
+      }
     }
   },
   "broken-touch.html": {
-    "errorsAt": { "375": [] },
-    "warns": ["S7"]
+    "errorsAt": {
+      "375": []
+    },
+    "warns": [
+      "S7"
+    ]
   },
   "anchor-sticky.html": {
     "hash": "target",
-    "errorsAt": { "375": [] },
-    "warns": ["S8"]
+    "errorsAt": {
+      "375": []
+    },
+    "warns": [
+      "S8"
+    ]
   },
   "ok-anchor.html": {
     "hash": "target",
-    "errorsAt": { "375": [] }
+    "errorsAt": {
+      "375": []
+    }
   },
   "sticky-cover.html": {
-    "errorsAt": { "375": [] }
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "H3",
+      "H4",
+      "H4-partial",
+      "S7"
+    ]
   },
   "disabled-controls.html": {
-    "errorsAt": { "375": [] }
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "H4",
+      "H5",
+      "S7"
+    ]
   },
   "sr-only.html": {
-    "errorsAt": { "375": [] }
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "H1c",
+      "H2",
+      "S5"
+    ]
   },
   "fieldset-disabled.html": {
-    "errorsAt": { "375": [] }
+    "errorsAt": {
+      "375": []
+    }
   },
   "gradient-text.html": {
-    "errorsAt": { "375": [] }
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "S5"
+    ]
   },
   "drawer-closed.html": {
-    "errorsAt": { "375": [] }
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "H3",
+      "S7"
+    ]
   },
   "persistent-modal.html": {
-    "errorsAt": { "375": ["H4"] }
+    "errorsAt": {
+      "375": [
+        "H4"
+      ]
+    },
+    "noWarns": [
+      "H3",
+      "S7"
+    ]
   },
   "hidden-overflow.html": {
-    "errorsAt": { "375": ["H1c"] }
+    "errorsAt": {
+      "375": [
+        "H1c"
+      ]
+    },
+    "noWarns": [
+      "H1"
+    ]
+  },
+  "inner-hidden-overflow.html": {
+    "errorsAt": {
+      "375": [
+        "H1c"
+      ]
+    },
+    "noWarns": [
+      "H1"
+    ]
+  },
+  "swiper-hidden.html": {
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "H1",
+      "H1c"
+    ]
   }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — transformed carousel slides are clipped on purpose</title>
+<style>
+  html, body { margin: 0; overflow-x: hidden; font-family: system-ui, sans-serif; }
+  .swiper { width: 100%; overflow: hidden; }
+  .track { display: flex; transform: translateX(-50px); }
+  .slide { flex: 0 0 320px; padding: 16px; background: #eeeeee; }
+  .slide p { margin: 0 0 8px; }
+  .slide button { min-height: 26px; }
+</style>
+</head>
+<body>
+<div class="swiper">
+  <div class="track">
+    <div class="slide"><p>slide one</p><button type="button">按钮一</button></div>
+    <div class="slide"><p>slide two</p><button type="button">按钮二</button></div>
+  </div>
+</div>
+</body>
+</html>

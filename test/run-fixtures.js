@@ -40,6 +40,11 @@ for (const [file, exp] of Object.entries(fixtures)) {
         check(warns.some((x) => x.rule === w), `${file} @${r.viewport} ${r.state}: expected warning ${w}`);
       }
     }
+    if (exp.noWarns) {
+      for (const w of exp.noWarns) {
+        check(!r.findings.some((x) => x.rule === w), `${file} @${r.viewport} ${r.state}: unexpected finding ${w}`);
+      }
+    }
   }
 }
 

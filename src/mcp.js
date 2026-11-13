@@ -105,6 +105,27 @@ async function callTool(name, args, signal = null) {
     err.name = 'AbortError';
     throw err;
   }
+  if (args.actions !== undefined) {
+    if (!Array.isArray(args.actions)) {
+      const err = new Error('actions must be an array');
+      err.code = 'INVALID_PARAMS';
+      throw err;
+    }
+    for (const a of args.actions) {
+      if (!a || (a.type !== 'click' && a.type !== 'hover') || typeof a.selector !== 'string' || !a.selector.trim()) {
+        const err = new Error('actions entries require type click|hover and a selector');
+        err.code = 'INVALID_PARAMS';
+        throw err;
+      }
+    }
+  }
+  if (args.viewports !== undefined) {
+    if (!Array.isArray(args.viewports) || args.viewports.some((v) => !Number.isInteger(v) || v <= 0)) {
+      const err = new Error('viewports must be positive integers');
+      err.code = 'INVALID_PARAMS';
+      throw err;
+    }
+  }
 
   const results = await scan(toUrl(args.url), {
     viewports: Array.isArray(args.viewports) && args.viewports.length ? args.viewports : undefined,
@@ -113,6 +134,11 @@ async function callTool(name, args, signal = null) {
     waitForStartupOverlay: args.waitForStartupOverlay !== false,
     signal,
   });
+  if (signal?.aborted) {
+    const err = new Error('scan aborted');
+    err.name = 'AbortError';
+    throw err;
+  }
   const reportPath = join(tmpdir(), `ui-guard-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.json`);
   writeFileSync(reportPath, JSON.stringify({ url: args.url, results }, null, 2));
 

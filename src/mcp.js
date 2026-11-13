@@ -87,6 +87,20 @@ function summarize(results) {
 }
 
 async function callTool(name, args) {
+  const tool = TOOLS.find((t) => t.name === name);
+  if (!tool) {
+    const err = new Error(`unknown tool: ${name}`);
+    err.code = 'METHOD_NOT_FOUND';
+    throw err;
+  }
+  for (const key of tool.inputSchema.required || []) {
+    if (!args || typeof args[key] !== 'string' || !args[key].trim()) {
+      const err = new Error(`missing or invalid required argument: ${key}`);
+      err.code = 'INVALID_PARAMS';
+      throw err;
+    }
+  }
+
   const results = await scan(toUrl(args.url), {
     viewports: Array.isArray(args.viewports) && args.viewports.length ? args.viewports : undefined,
     actions: args.actions ?? [],
@@ -125,18 +139,27 @@ async function callTool(name, args) {
 export function serveMcp() {
   const send = (obj) => process.stdout.write(JSON.stringify({ jsonrpc: '2.0', ...obj }) + '\n');
   const rl = createInterface({ input: process.stdin });
+  // Serial queue: concurrent tools/call must not spawn unbounded Chromium runs.
+  let queue = Promise.resolve();
+  const enqueue = (task) => {
+    const next = queue.then(task, task);
+    queue = next.catch(() => {});
+    return next;
+  };
+
   rl.on('line', async (line) => {
     if (!line.trim()) return;
     let msg;
     try {
       msg = JSON.parse(line);
     } catch {
+      send({ id: null, error: { code: -32700, message: 'parse error' } });
       return;
     }
     const { id, method, params } = msg;
     try {
       if (method === 'initialize') {
-        send({ id, result: { protocolVersion: params?.protocolVersion ?? '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'ui-guard', version: '0.0.2' } } });
+        send({ id, result: { protocolVersion: '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'ui-guard', version: '0.0.2' } } });
       } else if (method === 'notifications/initialized' || method === 'notifications/cancelled') {
         // no response required
       } else if (method === 'ping') {
@@ -144,14 +167,20 @@ export function serveMcp() {
       } else if (method === 'tools/list') {
         send({ id, result: { tools: TOOLS } });
       } else if (method === 'tools/call') {
-        const text = await callTool(params.name, params.arguments ?? {});
+        const text = await enqueue(() => callTool(params.name, params.arguments ?? {}));
         send({ id, result: { content: [{ type: 'text', text }] } });
       } else if (id !== undefined) {
         send({ id, error: { code: -32601, message: `method not found: ${method}` } });
       }
     } catch (err) {
       if (id !== undefined) {
-        send({ id, result: { content: [{ type: 'text', text: `ui-guard error: ${err.message}` }], isError: true } });
+        if (err.code === 'INVALID_PARAMS') {
+          send({ id, error: { code: -32602, message: err.message } });
+        } else if (err.code === 'METHOD_NOT_FOUND') {
+          send({ id, error: { code: -32601, message: err.message } });
+        } else {
+          send({ id, result: { content: [{ type: 'text', text: `ui-guard error: ${err.message}` }], isError: true } });
+        }
       }
     }
   });

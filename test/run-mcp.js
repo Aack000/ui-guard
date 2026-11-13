@@ -1,7 +1,8 @@
 // Simulates a coding agent talking to the ui-guard MCP server over stdio.
 import { spawn } from 'node:child_process';
-import { existsSync, unlinkSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { existsSync, mkdtempSync, readFileSync, rmSync, unlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const child = spawn(process.execPath, ['bin/ui-guard.js', 'mcp'], {
@@ -52,8 +53,10 @@ function check(pass, label, details) {
   }
 }
 
-const popoverUrl = pathToFileURL(resolve('fixtures', 'broken-popover.html')).href;
-const okUrl = pathToFileURL(resolve('fixtures', 'ok.html')).href;
+const tempDir = mkdtempSync(join(tmpdir(), 'ui-guard-mcp-'));
+const tempPopover = join(tempDir, 'popover.html');
+writeFileSync(tempPopover, readFileSync(resolve('fixtures', 'broken-popover.html'), 'utf8'));
+const popoverUrl = pathToFileURL(tempPopover).href;
 
 try {
   const init = await rpc(1, 'initialize', { protocolVersion: '2024-11-05', capabilities: {}, clientInfo: { name: 'test-agent', version: '0' } });
@@ -76,7 +79,8 @@ try {
   if (cur1) reportPaths.push(cur1);
   check(failText.includes('VERIFY FAIL') && failText.includes('1 persisting'), 'ui_verify flags persisting error as FAIL', failText);
 
-  const verifyPass = await rpc(5, 'tools/call', { name: 'ui_verify', arguments: { url: okUrl, baseline, viewports: [375] } });
+  writeFileSync(tempPopover, readFileSync(resolve('fixtures', 'ok.html'), 'utf8'));
+  const verifyPass = await rpc(5, 'tools/call', { name: 'ui_verify', arguments: { url: popoverUrl, baseline, viewports: [375] } });
   const passText = verifyPass.result?.content?.[0]?.text ?? '';
   const cur2 = passText.match(/current report: (.+)/)?.[1]?.trim();
   if (cur2) reportPaths.push(cur2);
@@ -84,6 +88,7 @@ try {
 } finally {
   clearTimeout(timeout);
   child.kill();
+  rmSync(tempDir, { recursive: true, force: true });
   for (const p of reportPaths) {
     try { if (existsSync(p)) unlinkSync(p); } catch { /* ignore */ }
   }

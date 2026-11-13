@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { scan } from '../src/scan.js';
 import { compare } from '../src/compare.js';
@@ -27,7 +27,14 @@ function parseArgs(argv) {
   for (let i = 0; i < rest.length; i++) {
     const arg = rest[i];
     if (arg === '--url') opts.url = rest[++i];
-    else if (arg === '--viewports') opts.viewports = rest[++i].split(',').map(Number);
+    else if (arg === '--viewports') {
+      const value = rest[++i];
+      if (!value || !/^\d+(,\d+)*$/.test(value)) {
+        console.error('--viewports must be comma-separated numbers (e.g. 375,768,1280)');
+        process.exit(2);
+      }
+      opts.viewports = value.split(',').map(Number);
+    }
     else if (arg === '--out') opts.out = rest[++i];
     else if (arg === '--baseline') opts.baseline = rest[++i];
     else if (arg === '--json') opts.json = true;
@@ -86,10 +93,24 @@ async function run(opts) {
     perf: Boolean(opts.perf),
     waitForStartupOverlay: opts.waitForStartupOverlay !== false,
   });
-  if (opts.out) writeFileSync(opts.out, JSON.stringify({ url, results }, null, 2));
+  if (opts.out) {
+    try {
+      mkdirSync(dirname(opts.out), { recursive: true });
+      writeFileSync(opts.out, JSON.stringify({ url, results }, null, 2));
+    } catch (err) {
+      console.error(`cannot write report ${opts.out}: ${err.message}`);
+      process.exit(2);
+    }
+  }
 
   if (opts.command === 'verify') {
-    const baseline = JSON.parse(readFileSync(opts.baseline, 'utf8'));
+    let baseline;
+    try {
+      baseline = JSON.parse(readFileSync(opts.baseline, 'utf8'));
+    } catch (err) {
+      console.error(`cannot read baseline ${opts.baseline}: ${err.message}`);
+      process.exit(2);
+    }
     const { added, fixed, persisting, skipped } = compare(baseline.results, results);
     const scanError = results.find((r) => r.error);
     const pass = !scanError && added.length === 0 && persisting.length === 0 && skipped.length === 0;
@@ -119,5 +140,10 @@ const opts = parseArgs(process.argv.slice(2));
 if (opts.command === 'mcp') {
   serveMcp();
 } else {
-  await run(opts);
+  try {
+    await run(opts);
+  } catch (err) {
+    console.error(`ui-guard: ${err.message}`);
+    process.exit(2);
+  }
 }

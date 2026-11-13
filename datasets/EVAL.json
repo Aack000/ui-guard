@@ -5,23 +5,23 @@
     "total": 148
   },
   "coverage": {
-    "rawScopes": 22,
-    "evaluated": 143,
-    "uncovered": 5,
+    "rawScopes": 26,
+    "evaluated": 148,
+    "uncovered": 0,
     "realEvidence": {
       "total": 23,
-      "raw": 8,
-      "note": 15
+      "raw": 11,
+      "note": 0
     }
   },
   "metrics": {
     "real": {
       "precision": 1,
-      "recall": 0.571,
-      "tp": 8,
-      "fn": 6,
+      "recall": 0.688,
+      "tp": 11,
+      "fn": 5,
       "fp": 0,
-      "tn": 4
+      "tn": 7
     },
     "synthetic": {
       "precision": 1,
@@ -36,11 +36,11 @@
     "S5": {
       "real": {
         "precision": 1,
-        "recall": 0.5,
-        "tp": 5,
-        "fn": 5,
+        "recall": 0.667,
+        "tp": 8,
+        "fn": 4,
         "fp": 0,
-        "tn": 0
+        "tn": 1
       },
       "synthetic": {
         "precision": null,
@@ -105,6 +105,42 @@
         "tn": 2
       }
     },
+    "H4": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 20,
+        "fn": 0,
+        "fp": 0,
+        "tn": 3
+      }
+    },
+    "H5": {
+      "real": {
+        "precision": null,
+        "recall": null,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      },
+      "synthetic": {
+        "precision": 1,
+        "recall": 1,
+        "tp": 15,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1
+      }
+    },
     "S6": {
       "real": {
         "precision": 1,
@@ -159,24 +195,6 @@
         "tn": 1
       }
     },
-    "H4": {
-      "real": {
-        "precision": null,
-        "recall": null,
-        "tp": 0,
-        "fn": 0,
-        "fp": 0,
-        "tn": 0
-      },
-      "synthetic": {
-        "precision": 1,
-        "recall": 1,
-        "tp": 20,
-        "fn": 0,
-        "fp": 0,
-        "tn": 3
-      }
-    },
     "H4-partial": {
       "real": {
         "precision": null,
@@ -193,24 +211,6 @@
         "fn": 0,
         "fp": 0,
         "tn": 0
-      }
-    },
-    "H5": {
-      "real": {
-        "precision": null,
-        "recall": null,
-        "tp": 0,
-        "fn": 0,
-        "fp": 0,
-        "tn": 0
-      },
-      "synthetic": {
-        "precision": 1,
-        "recall": 1,
-        "tp": 15,
-        "fn": 0,
-        "fp": 0,
-        "tn": 1
       }
     },
     "S7": {
@@ -286,11 +286,5 @@
       }
     }
   },
-  "uncoveredIds": [
-    "real-010",
-    "real-011",
-    "real-103",
-    "real-104",
-    "real-105"
-  ]
+  "uncoveredIds": []
 }

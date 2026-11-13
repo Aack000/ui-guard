@@ -1,12 +1,12 @@
 {
   "real-001": {
     "type": "raw",
-    "file": "P1-_login.json",
+    "file": "P1-register.json",
     "selector": "div.login > div.login-panel > div.login-header > p.login-desc"
   },
   "real-002": {
     "type": "raw",
-    "file": "P1-_login.json",
+    "file": "P1-register.json",
     "selector": "div.login > div.login-panel > div.login-divider > span"
   },
   "real-003": {
@@ -20,12 +20,12 @@
     "selector": "div.login-page > div.login-card > div.login-header > p"
   },
   "real-005": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-006": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-007": {
     "type": "raw",
@@ -33,40 +33,43 @@
     "selector": "header.el-header.navbar > div.navbar-content > div.logo > span"
   },
   "real-008": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-009": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "raw",
+    "file": "P4-login.json",
+    "selector": "div.login-container.teacher-theme > div.login-card > div.login-footer > p"
   },
   "real-010": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "raw",
+    "file": "P4-login.json",
+    "selector": "form.el-form.el-form--large > div.el-form-item.el-form-item--large > div.el-form-item__content > div.el-form-item__error"
   },
   "real-011": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "raw",
+    "file": "P4-login.json",
+    "selector": "div.el-message.el-message--error > p.el-message__content"
   },
   "real-101": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-102": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-103": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-104": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-105": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-018": {
     "type": "raw",
@@ -84,19 +87,19 @@
     "selector": "div.el-select__wrapper.el-tooltip__trigger > div.el-select__selection > div.el-select__selected-item.el-select__placeholder > span"
   },
   "real-021": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-022": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-106": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   },
   "real-107": {
-    "type": "note",
-    "note": "state-specific/historical finding; raw report not retained; engine re-check pending"
+    "type": "scan",
+    "note": "state measured; expected finding absent"
   }
 }

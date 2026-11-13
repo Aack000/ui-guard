@@ -1,8 +1,18 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.24（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.25（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.24）
+## 最新结果（2026-11-13，v0.0.25）
+
+三个子代理并行审查后的高严重度修复 + 训练集：
+
+- **verify 语义**：扫描失败（页面打不开 / 浏览器崩溃）不再 PASS；baseline 有、本次没测的 viewport/state 记为 `skipped` 并 FAIL；扫描错误的 scope 不再算 fixed。CLI 与 MCP 同步；MCP 还校验 baseline URL、空 viewports 回退默认。
+- **面板降级**：sessionStorage 被禁用时不再中断（降级为无 token，开场仍能结束并移除）；错误态清空 doctor/ug 残留、`current` 置空、禁用写按钮但保留未保存勾选；写接口缺参数返回 400；REINSTALL 摘要去重、未安装时禁用。
+- **训练集**：`datasets/README.md` + `datasets/labels.jsonl`（16 条脱敏标签，含真阳性与误报负样本）；原始数据只放本地 `datasets/raw/`（gitignore），不提交其他项目数据。
+- 未修：CLI 参数错误码/`--out` 失败（A3/A4）、MCP 并发/协议（A6/A7）、面板 toast 顶层/安装中状态（B2/B3/B4）、引擎 R2/R3/R4/R5/R8/R9/R11（README 已知局限）。
+- 自动化任务 view 只返回 id，无法确认实际运行。
+
+## 上一阶段结果（2026-11-13，v0.0.24）
 
 子代理独立审查（R1–R12）后的误报修复：
 

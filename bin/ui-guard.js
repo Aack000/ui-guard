@@ -90,9 +90,14 @@ async function run(opts) {
 
   if (opts.command === 'verify') {
     const baseline = JSON.parse(readFileSync(opts.baseline, 'utf8'));
-    const { added, fixed, persisting } = compare(baseline.results, results);
-    const pass = added.length === 0 && persisting.length === 0;
-    console.log(`VERIFY ${pass ? 'PASS' : 'FAIL'} — ${added.length} new, ${persisting.length} persisting, ${fixed.length} fixed`);
+    const { added, fixed, persisting, skipped } = compare(baseline.results, results);
+    const scanError = results.find((r) => r.error);
+    const pass = !scanError && added.length === 0 && persisting.length === 0 && skipped.length === 0;
+    console.log(`VERIFY ${pass ? 'PASS' : 'FAIL'} — ${added.length} new, ${persisting.length} persisting, ${fixed.length} fixed, ${skipped.length} skipped`);
+    if (scanError) {
+      console.log(`  x scan failed @${scanError.viewport}px ${scanError.state}: ${scanError.error}`);
+    }
+    for (const scope of skipped) console.log(`  ! unmeasured: ${scope} (baseline had results)`);
     for (const f of [...added, ...persisting]) {
       console.log(`  x ${f.rule} @${f.viewport}px ${f.state} ${f.selector}: ${f.message}`);
     }

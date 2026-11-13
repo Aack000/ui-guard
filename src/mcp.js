@@ -88,7 +88,7 @@ function summarize(results) {
 
 async function callTool(name, args) {
   const results = await scan(toUrl(args.url), {
-    viewports: args.viewports,
+    viewports: Array.isArray(args.viewports) && args.viewports.length ? args.viewports : undefined,
     actions: args.actions ?? [],
     perf: args.perf === true,
     waitForStartupOverlay: args.waitForStartupOverlay !== false,
@@ -103,9 +103,15 @@ async function callTool(name, args) {
   if (name === 'ui_verify') {
     const { readFileSync } = await import('node:fs');
     const baseline = JSON.parse(readFileSync(args.baseline, 'utf8'));
-    const { added, fixed, persisting } = compare(baseline.results, results);
-    const pass = added.length === 0 && persisting.length === 0;
-    const lines = [`VERIFY ${pass ? 'PASS' : 'FAIL'} — ${added.length} new, ${persisting.length} persisting, ${fixed.length} fixed`];
+    if (baseline.url && toUrl(baseline.url) !== toUrl(args.url)) {
+      throw new Error(`baseline url mismatch: ${baseline.url} vs ${args.url}`);
+    }
+    const { added, fixed, persisting, skipped } = compare(baseline.results, results);
+    const scanError = results.find((r) => r.error);
+    const pass = !scanError && added.length === 0 && persisting.length === 0 && skipped.length === 0;
+    const lines = [`VERIFY ${pass ? 'PASS' : 'FAIL'} — ${added.length} new, ${persisting.length} persisting, ${fixed.length} fixed, ${skipped.length} skipped`];
+    if (scanError) lines.push(`  x scan failed @${scanError.viewport}px ${scanError.state}: ${scanError.error}`);
+    for (const scope of skipped) lines.push(`  ! unmeasured: ${scope}`);
     for (const f of [...added, ...persisting]) {
       lines.push(`  x ${f.rule} @${f.viewport}px ${f.state} ${f.selector}: ${f.message}`);
     }

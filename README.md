@@ -69,16 +69,16 @@ node bin/ui-guard.js mcp
 claude mcp add -s user ui-guard -- node <绝对路径>/bin/ui-guard.js mcp
 ```
 
-工具：`ui_scan` / `ui_verify` / `ui_probe`。`ui_probe` 只回候选证据（bbox、selector、kind、confidence、suggestedCheck），明确标注“不是 verdict”，由 agent 自己复核；参数含 `viewports`、`actions`、`perf`、`waitForStartupOverlay`。几何数据写到系统临时目录，回给模型的只有摘要 + 报告路径。
+工具：`ui_scan` / `ui_verify` / `ui_probe`。`ui_probe` 只回候选证据（bbox、selector、kind、engineSeverity、message、requiresVerification、suggestedCheck）以及 `measured` / `abstain` / `limitations`，明确标注“不是 verdict”，由 agent 自己复核；参数含 `viewports`、`actions`、`perf`、`waitForStartupOverlay`。几何数据写到系统临时目录，回给模型的只有摘要 + 报告路径。
 
 **验收协议**（写在工具描述里）：扫描 → 修复 → `ui_verify` 核对增量 → 最多 3 轮，未收敛就停下，把完整报告交给人类。
 
 ## 测试
 
 ```bash
-npm test                 # 69 项：多视口断言 + 交互状态 + 回归对比 + 新规则
+npm test                 # 118 项：多视口断言 + 交互状态 + 回归对比 + 新规则
 npm run eval             # 真实 23 + 合成 125 条标签的命中 / 误报 / 覆盖评估
-node test/run-mcp.js     # MCP stdio 端到端
+node test/run-mcp.js     # MCP stdio 端到端（12 项）
 ```
 
 fixtures 覆盖：正常页的刻意设计（badge 重叠、省略号、line-clamp、横向滚动、关闭态抽屉、装饰光晕、竖排文字、模态背景、sr-only、fieldset disabled、透明渐变文字、transform 关闭抽屉）、各类硬错误、交互打开态、启动遮罩、低对比度、长任务。

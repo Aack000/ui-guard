@@ -3,12 +3,14 @@
 //   ui_scan -> agent fixes -> ui_verify -> repeat at most 3 rounds,
 //   then escalate the full report to a human instead of burning tokens.
 import { createInterface } from 'node:readline';
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { scan } from './scan.js';
 import { compare } from './compare.js';
+
+const PKG = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 
 const PROTOCOL = [
   'Acceptance protocol: (1) ui_scan the page after UI work; (2) fix reported hard errors;',
@@ -281,7 +283,7 @@ export function serveMcp() {
     const { id, method, params } = msg;
     try {
       if (method === 'initialize') {
-        send({ id, result: { protocolVersion: '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'ui-guard', version: '0.0.2' } } });
+        send({ id, result: { protocolVersion: '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'ui-guard', version: PKG.version } } });
       } else if (method === 'notifications/initialized') {
         // no response required
       } else if (method === 'notifications/cancelled') {

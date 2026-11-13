@@ -1,8 +1,18 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.26（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.27（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.26）
+## 最新结果（2026-11-13，v0.0.27）
+
+闭环收尾：
+
+- **面板 toast**：dialog 打开时把 toast 移入 dialog（top layer），实测父节点为 dialog、视口内可见；关闭后自动回 body。
+- **安装中第二标签页保护**：`/api/status` 返回 `installing`，另一个标签页也会禁用 APPLY / REINSTALL 并提示“安装器正在运行”（实测 true / true / title）。
+- **训练集原始数据**：4 个真实项目 × 375/1280 的扫描报告保存到 `datasets/raw/`（已 gitignore，8 份，全部 0 硬错误）；`datasets/labels.jsonl` 保留 16 条脱敏标签。
+- **验证**：MCP **6/6**、fixtures **44/44**；面板 initial / check / refresh / install / error / toast / installing 全部通过。
+- **剩余边界**：MCP 取消通知不会真正中断正在跑的扫描；安装中 `/api/status` 未做完整快照（前端禁用写 + 服务端 `installing` 标记）；引擎 R2/R3/R4/R5/R8/R9/R11 记录在 README 已知局限。
+
+## 上一阶段结果（2026-11-13，v0.0.26）
 
 MCP / CLI / 面板安装态修复：
 

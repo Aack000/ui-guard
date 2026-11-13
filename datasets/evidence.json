@@ -40,7 +40,7 @@
   },
   "real-009": {
     "type": "raw",
-    "file": "P4-login.json",
+    "file": "P4-footer.json",
     "selector": "div.login-container.teacher-theme > div.login-card > div.login-footer > p"
   },
   "real-010": {

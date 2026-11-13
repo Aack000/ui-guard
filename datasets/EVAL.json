@@ -20,9 +20,9 @@
   "metrics": {
     "real": {
       "precision": 1,
-      "recall": 0.875,
-      "tp": 14,
-      "fn": 2,
+      "recall": 0.938,
+      "tp": 15,
+      "fn": 1,
       "fp": 0,
       "tn": 0
     },
@@ -39,9 +39,9 @@
     "S5": {
       "real": {
         "precision": 1,
-        "recall": 0.833,
-        "tp": 10,
-        "fn": 2,
+        "recall": 0.917,
+        "tp": 11,
+        "fn": 1,
         "fp": 0,
         "tn": 0
       },
@@ -289,7 +289,36 @@
       }
     }
   },
-  "unlabeledFindings": 26,
+  "unlabeledFindings": 27,
+  "unlabeledFindingList": [
+    "P1@375 click:register S5 div.login > div.login-panel > div.login-header > p.login-desc",
+    "P1@375 click:register S5 div.login > div.login-panel > div.login-divider > span",
+    "P1@1280 baseline S5 div.login > div.login-panel > div.login-header > p.login-desc",
+    "P1@1280 baseline S5 div.login > div.login-panel > div.login-divider > span",
+    "P2@1280 baseline S5 div.login-page > div.login-card > div.login-header > h1",
+    "P2@1280 baseline S5 div.login-page > div.login-card > div.login-header > p",
+    "P2@1280 baseline S5 div.login-page > div.login-card > div.login-tabs > button.tab",
+    "P3@375 cart H1c div.navbar-wrapper > header.el-header.navbar > div.navbar-content > nav.nav-links",
+    "P3@375 cart S4 header.el-header.navbar > div.navbar-content > div.logo > span",
+    "P3@375 favorites H1c div.navbar-wrapper > header.el-header.navbar > div.navbar-content > nav.nav-links",
+    "P3@375 favorites S4 header.el-header.navbar > div.navbar-content > div.logo > span",
+    "P3@375 orders H1c div.navbar-wrapper > header.el-header.navbar > div.navbar-content > nav.nav-links",
+    "P3@375 orders S4 header.el-header.navbar > div.navbar-content > div.logo > span",
+    "P3@375 wallet H1c div.navbar-wrapper > header.el-header.navbar > div.navbar-content > nav.nav-links",
+    "P3@375 wallet S4 header.el-header.navbar > div.navbar-content > div.logo > span",
+    "P3@375 notifications H1c div.navbar-wrapper > header.el-header.navbar > div.navbar-content > nav.nav-links",
+    "P3@375 notifications S4 header.el-header.navbar > div.navbar-content > div.logo > span",
+    "P3@1440 products S6 div.el-card.is-always-shadow > div.el-card__body > div.product-info > h3",
+    "P3@1440 products S5 div.el-select__wrapper.el-tooltip__trigger > div.el-select__selection > div.el-select__selected-item.el-select__placeholder > span",
+    "P3@1440 products S5 div.products > div.search-filter > button.el-button.el-button--warning > span",
+    "P3@1440 cart S5 div.cart-page > div.cart-header > button.el-button.el-button--primary > span",
+    "P3@1280 click:products S5 div.product-info > div.product-actions > button.el-button.el-button--primary > span",
+    "P3@375 baseline S5 div.login-container.teacher-theme > div.login-card > div.login-footer > p",
+    "P3@1280 baseline S5 div.login-container.teacher-theme > div.login-card > div.login-footer > p",
+    "P4@1280 baseline S5 div.login-container.teacher-theme > div.login-card > div.login-footer > p",
+    "P4@375 click:login S5 div.login-container.teacher-theme > div.login-card > div.login-footer > p",
+    "P4@375 baseline S4 header.el-header.navbar > div.navbar-content > div.logo > span"
+  ],
   "uncoveredIds": [],
   "unmeasuredIds": [],
   "staleIds": [],
@@ -303,8 +332,7 @@
     "real-107"
   ],
   "falseNegatives": [
-    "real-006 P3@375 products S5 .product-actions > button > span",
-    "real-009 P4@375 baseline S5 .login-footer > p"
+    "real-006 P3@375 products S5 .product-actions > button > span"
   ],
   "falsePositives": []
 }

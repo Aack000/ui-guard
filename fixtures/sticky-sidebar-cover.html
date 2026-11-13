@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — sticky sidebar covers a button</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  button { min-height: 26px; }
+  .side { position: sticky; top: 0; float: right; width: 170px; height: 100vh; background: #eeeeee; z-index: 2; padding: 8px; }
+  #under { position: absolute; right: 0; top: 40px; }
+</style>
+</head>
+<body>
+<aside class="side">固定侧栏内容</aside>
+<button type="button" id="under">被侧栏盖住的按钮</button>
+</body>
+</html>

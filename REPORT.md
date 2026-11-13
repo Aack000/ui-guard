@@ -1,8 +1,20 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.36（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.37（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.36）
+## 最新结果（2026-11-13，v0.0.37）
+
+A 路线收尾：
+
+- **S5 图片背景**：文字中心用 `elementsFromPoint` 找下方 `img/video/canvas`，命中则跳过而不是回退白底；新增 `image-hero.html`（深色图上的白字，不报 S5）。
+- **H1c 内层裁剪**：隐藏溢出检测不再被 `docOverflow` 短路；根裁剪交给 H1，内层 wrapper 的 H1c 仍报；新增 `inner-root-overflow.html`（H1 + H1c）。
+- **H4 sticky 侧栏**：只有宽度 ≥50% 视口、靠近顶部的 sticky 头才豁免；窄 sticky 侧栏盖住按钮仍报 H4；新增 `sticky-sidebar-cover.html`。
+- **S2**：行分组不再扩张包围盒，避免跨行合并误报。
+- **评估**：精确 selector + state + finding 一次性匹配；失败/未测不计 TN；补 `P4-footer` 证据修正 `real-009`；真实 **TP 15 / FN 1 / TN 0**，recall **0.938**（唯一 FN：`real-006` 375 商品按钮 S5 缺失，1280 有 count 862，疑似引擎漏报）；7 条负样本仍未证明元素存在，不计 TN；`unlabeledFindings=26` 已输出明细。
+- **验证**：fixtures **118/118**、MCP **12/12**；B 暂缓，不接模型。
+- 未修：H4 滚动容器、H5 30% 阈值、R4 首屏外 H4、R8 aria-hidden 子树、R11 渐变 S5。
+
+## 上一阶段结果（2026-11-13，v0.0.36）
 
 Review 后的评估/工具契约修复：
 

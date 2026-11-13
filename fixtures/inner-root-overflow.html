@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — root and inner wrapper both clip</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  button { min-height: 26px; }
+  .root-wide { width: 900px; height: 20px; background: #eeeeee; }
+  .page { overflow-x: hidden; width: 100%; }
+  .inner-wide { width: 900px; padding: 16px; background: #dddddd; }
+  .inner-wide p { margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<div class="root-wide">root overflow</div>
+<div class="page">
+  <div class="inner-wide">
+    <p>内层 wrapper 同时裁掉的 900px 内容。</p>
+    <button type="button">按钮</button>
+  </div>
+</div>
+</body>
+</html>

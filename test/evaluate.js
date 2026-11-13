@@ -123,6 +123,8 @@ const report = {
   metrics: { real: rate(totals.real), synthetic: rate(totals.synthetic) },
   byRule: Object.fromEntries(Object.entries(byRule).map(([rule, v]) => [rule, { real: rate(v.real), synthetic: rate(v.synthetic) }])),
   unlabeledFindings: unlabeledFindings.length,
+  unlabeledFindingList: unlabeledFindings.map((r) => `${r.source}@${r.viewport} ${r.state} ${r.rule} ${r.selector}`),
+
   uncoveredIds: uncovered.map((l) => l.id),
   unmeasuredIds: unmeasured.map((l) => l.id),
   staleIds: stale.map((l) => l.id),

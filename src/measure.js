@@ -143,6 +143,20 @@ export function measure() {
       if (c && c.a > 0 && c.a < 0.95) return null;
       if (c && c.a >= 0.95) return [c];
     }
+    // A sibling <img>/<video>/<canvas> can be the actual backdrop while the
+    // ancestors are transparent. Sampling the text center avoids a white
+    // fallback that would fabricate a contrast failure.
+    const tr = el.getBoundingClientRect();
+    if (tr.width > 0 && tr.height > 0) {
+      for (const node of document.elementsFromPoint(tr.left + tr.width / 2, tr.top + tr.height / 2)) {
+        if (node === el || el.contains(node)) continue;
+        if (['IMG', 'VIDEO', 'CANVAS'].includes(node.tagName)) return null;
+        const ncs = getComputedStyle(node);
+        if (ncs.backgroundImage !== 'none') return null;
+        const c = parseRgb(ncs.backgroundColor);
+        if (c && c.a >= 0.95) return [c];
+      }
+    }
     return [{ r: 255, g: 255, b: 255, a: 1 }];
   }
 
@@ -165,11 +179,13 @@ export function measure() {
     if (offenders.length === 0) {
       report('H1', 'error', doc, `page overflows horizontally (doc ${doc.scrollWidth}px > viewport ${vw}px)`);
     }
-  } else {
+  }
+  {
     // overflow-x: hidden/clip can pull scrollWidth back to the viewport and
     // silently hide content wider than the screen. Inspect elements whose
     // nearest clipping ancestor cuts them off; ignore off-right slides and
-    // anything moved by a transform/filter.
+    // anything moved by a transform/filter. This runs even when the root also
+    // overflows: an inner clipping wrapper is a separate defect from H1.
     const underTransform = (el) => {
       for (let n = el; n; n = n.parentElement) {
         const cs = getComputedStyle(n);
@@ -201,6 +217,8 @@ export function measure() {
         if (el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE)) return false;
         const clip = clippingAncestor(el);
         if (!clip) return false;
+        // Root clipping is already covered by H1; only report inner wrappers here.
+        if (docOverflow && (clip === doc || clip === document.body)) return false;
         const cr = clip.getBoundingClientRect();
         return r.right > cr.right + EPS;
       })
@@ -343,7 +361,11 @@ export function measure() {
     // fixed overlay this is reachable, so those sample points are not "covered".
     const underStickyHeader = (node) => {
       for (let n = node; n; n = n.parentElement) {
-        if (getComputedStyle(n).position === 'sticky' && n.getBoundingClientRect().top < vh * 0.4) return true;
+        if (getComputedStyle(n).position !== 'sticky') continue;
+        const nr = n.getBoundingClientRect();
+        // A narrow sticky sidebar is not a header: it can permanently cover
+        // content. Only wide sticky bars near the top are scroll-reachable.
+        if (nr.top < vh * 0.4 && nr.width >= vw * 0.5) return true;
       }
       return false;
     };

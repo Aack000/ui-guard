@@ -3,13 +3,29 @@
     "errorsAt": {
       "375": [],
       "1280": []
-    }
+    },
+    "noWarns": [
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7"
+    ]
   },
   "modal.html": {
     "errorsAt": {
       "375": [],
       "1280": []
-    }
+    },
+    "noWarns": [
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7"
+    ]
   },
   "broken-overflow.html": {
     "errorsAt": {
@@ -173,7 +189,15 @@
     "hash": "target",
     "errorsAt": {
       "375": []
-    }
+    },
+    "noWarns": [
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7"
+    ]
   },
   "sticky-cover.html": {
     "errorsAt": {
@@ -274,6 +298,48 @@
     },
     "noWarns": [
       "S2"
+    ]
+  },
+  "image-hero.html": {
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "S5",
+      "S2",
+      "S3",
+      "S4",
+      "S6",
+      "S7"
+    ]
+  },
+  "inner-root-overflow.html": {
+    "errorsAt": {
+      "375": [
+        "H1",
+        "H1c"
+      ]
+    },
+    "noWarns": [
+      "S2",
+      "S3",
+      "S5",
+      "S6",
+      "S7"
+    ]
+  },
+  "sticky-sidebar-cover.html": {
+    "errorsAt": {
+      "375": [
+        "H4"
+      ]
+    },
+    "noWarns": [
+      "S2",
+      "S3",
+      "S5",
+      "S6",
+      "S7"
     ]
   }
 }

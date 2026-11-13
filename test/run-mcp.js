@@ -64,7 +64,7 @@ try {
 
   const list = await rpc(2, 'tools/list', {});
   const names = list.result?.tools?.map((t) => t.name) ?? [];
-  check(names.includes('ui_scan') && names.includes('ui_verify'), `tools/list exposes ui_scan + ui_verify (got: ${names.join(', ')})`);
+  check(names.includes('ui_scan') && names.includes('ui_verify') && names.includes('ui_probe'), `tools/list exposes ui_scan + ui_verify + ui_probe (got: ${names.join(', ')})`);
 
   const scanMsg = await rpc(3, 'tools/call', { name: 'ui_scan', arguments: { url: popoverUrl, viewports: [375] } });
   const scanText = scanMsg.result?.content?.[0]?.text ?? '';
@@ -78,6 +78,13 @@ try {
   const cur1 = failText.match(/current report: (.+)/)?.[1]?.trim();
   if (cur1) reportPaths.push(cur1);
   check(failText.includes('VERIFY FAIL') && failText.includes('1 persisting'), 'ui_verify flags persisting error as FAIL', failText);
+
+  const probeMsg = await rpc(6, 'tools/call', { name: 'ui_probe', arguments: { url: popoverUrl, viewports: [375] } });
+  const probeText = probeMsg.result?.content?.[0]?.text ?? '';
+  let probe = null;
+  try { probe = JSON.parse(probeText); } catch { probe = null; }
+  check(Array.isArray(probe?.candidates) && probe.candidates.some((c) => c.kind === 'H3'), 'ui_probe returns evidence candidates', probeText);
+  check(!/VERIFY (PASS|FAIL)|hard errors|isError/.test(probeText) && probe?.abstain === false, 'ui_probe stays evidence-only', probeText);
 
   writeFileSync(tempPopover, readFileSync(resolve('fixtures', 'ok.html'), 'utf8'));
   const verifyPass = await rpc(5, 'tools/call', { name: 'ui_verify', arguments: { url: popoverUrl, baseline, viewports: [375] } });

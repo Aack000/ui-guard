@@ -1,8 +1,17 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.32（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.33（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.32）
+## 最新结果（2026-11-13，v0.0.33）
+
+A/B 并行推进：
+
+- **A 评估门禁**：`npm run eval` 对合成集增加回归门禁（任何 synthetic FP/FN 退出非 0）；当前 148 标签、真实覆盖 18/23、合成 TP 105 / TN 20。
+- **B0 证据工具**：新增 MCP `ui_probe`，只返回候选证据（bbox、selector、kind、confidence、suggestedCheck）与 `abstain`/`limitations`，明确不返回 pass/fail；MCP 端到端 **8/8**。
+- **B 结论**：先做规则证据工具，暂不训练模型；网页场景 DOM 已提供高精度定位，视觉小模型只在 canvas/图片/截图差异等视觉补充场景有价值。已有 Playwright MCP、UI Verify、OmniParser、UI-TARS、ShowUI、Florence-2 微调等可复用/需避让。
+- 下一步：用 agent A/B 验证 `ui_probe` 是否真的提升复核效率；无增益就停，不进入 VLM/微调。
+
+## 上一阶段结果（2026-11-13，v0.0.32）
 
 标签集与评估脚本：
 

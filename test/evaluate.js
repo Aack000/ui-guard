@@ -68,3 +68,7 @@ const report = {
 };
 writeFileSync('datasets/EVAL.json', JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));
+if (totals.synthetic.fp || totals.synthetic.fn) {
+  console.error('FAIL: synthetic regression detected');
+  process.exitCode = 1;
+}

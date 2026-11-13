@@ -61,6 +61,20 @@ const TOOLS = [
       required: ['url', 'baseline'],
     },
   },
+  {
+    name: 'ui_probe',
+    description: 'Evidence-only layout probe for agents. Returns candidate regions, DOM evidence, confidence and suggested checks. It never returns pass/fail: the agent must verify and decide.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        url: { type: 'string', description: 'http(s) URL or absolute file path of the page' },
+        viewports: { type: 'array', items: { type: 'number' } },
+        actions: ACTIONS_SCHEMA,
+        waitForStartupOverlay: { type: 'boolean' },
+      },
+      required: ['url'],
+    },
+  },
 ];
 
 function toUrl(raw) {
@@ -142,6 +156,46 @@ async function callTool(name, args, signal = null) {
   const reportPath = join(tmpdir(), `ui-guard-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.json`);
   writeFileSync(reportPath, JSON.stringify({ url: args.url, results }, null, 2));
 
+  if (name === 'ui_probe') {
+    const suggest = {
+      H1: 'inspect html/body overflow and the widest in-flow element',
+      H1c: 'compare scrollWidth/clientWidth with the nearest overflow-x ancestor',
+      H2: 'compare scrollHeight/clientHeight and line-clamp',
+      H3: 'check the fixed overlay bounds against the viewport',
+      H4: 'use elementsFromPoint at the reported control points',
+      'H4-partial': 'use elementsFromPoint; check fixed/sticky overlays',
+      H5: 'compare interactive rect intersections',
+      S1: 'check whether the font face actually loaded',
+      S2: 'compare button centers only within the same visual row',
+      S3: 'check text rect overlaps, ignoring fixed/sticky overlays',
+      S4: 'check writing-mode and available width vs font size',
+      S5: 'recompute contrast on the solid background',
+      S6: 'check title/aria-label on the ellipsized element',
+      S7: 'measure the target size and label association',
+      S8: 'compare scroll-margin-top with the sticky header height',
+      P1: 're-run the perf sample',
+    };
+    const candidates = results.flatMap((r) => r.findings.map((f) => ({
+      viewport: r.viewport,
+      state: r.state ?? 'baseline',
+      kind: f.rule,
+      severity: f.severity,
+      selector: f.selector,
+      bbox: f.rect,
+      count: f.count ?? 1,
+      confidence: f.severity === 'error' ? 0.8 : 0.55,
+      evidence: ['dom', 'computed-style'],
+      suggestedCheck: suggest[f.rule] || 'verify in the DOM and screenshot',
+    })));
+    return JSON.stringify({
+      tool: 'ui_probe',
+      note: 'Evidence only. Verify each candidate in the DOM/screenshot and decide; confidence is not a verdict.',
+      candidates,
+      abstain: results.some((r) => r.error),
+      limitations: results.filter((r) => r.error).map((r) => `@${r.viewport} ${r.state}: ${r.error}`),
+      reportPath,
+    });
+  }
   if (name === 'ui_scan') {
     const { text } = summarize(results);
     return `${text}\nbaseline saved: ${reportPath}`;

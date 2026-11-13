@@ -69,7 +69,7 @@ node bin/ui-guard.js mcp
 claude mcp add -s user ui-guard -- node <绝对路径>/bin/ui-guard.js mcp
 ```
 
-工具：`ui_scan` / `ui_verify`，参数含 `viewports`、`actions`、`perf`、`waitForStartupOverlay`。几何数据写到系统临时目录，回给模型的只有摘要 + 报告路径。
+工具：`ui_scan` / `ui_verify` / `ui_probe`。`ui_probe` 只回候选证据（bbox、selector、kind、confidence、suggestedCheck），明确标注“不是 verdict”，由 agent 自己复核；参数含 `viewports`、`actions`、`perf`、`waitForStartupOverlay`。几何数据写到系统临时目录，回给模型的只有摘要 + 报告路径。
 
 **验收协议**（写在工具描述里）：扫描 → 修复 → `ui_verify` 核对增量 → 最多 3 轮，未收敛就停下，把完整报告交给人类。
 

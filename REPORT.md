@@ -38,7 +38,7 @@ MCP 取消 + R9 常驻模态：
 
 - **面板 toast**：dialog 打开时把 toast 移入 dialog（top layer），实测父节点为 dialog、视口内可见；关闭后自动回 body。
 - **安装中第二标签页保护**：`/api/status` 返回 `installing`，另一个标签页也会禁用 APPLY / REINSTALL 并提示“安装器正在运行”（实测 true / true / title）。
-- **训练集原始数据**：4 个真实项目 × 375/1280 的扫描报告保存到 `datasets/raw/`（已 gitignore，8 份，全部 0 硬错误）；`datasets/labels.jsonl` 保留 16 条脱敏标签。
+- **训练集原始数据**：4 个真实项目的扫描报告保存到 `datasets/raw/`（4 份 JSON，覆盖 8 个视口结果；已 gitignore，全部 0 硬错误）；`datasets/labels.jsonl` 保留 16 条脱敏标签。
 - **验证**：MCP **6/6**、fixtures **44/44**；面板 initial / check / refresh / install / error / toast / installing 全部通过。
 - **剩余边界**：MCP 取消通知不会真正中断正在跑的扫描；安装中 `/api/status` 未做完整快照（前端禁用写 + 服务端 `installing` 标记）；引擎 R2/R3/R4/R5/R8/R9/R11 记录在 README 已知局限。
 

@@ -10,16 +10,16 @@
     "uncovered": 0,
     "realEvidence": {
       "total": 23,
-      "raw": 11,
+      "raw": 14,
       "note": 0
     }
   },
   "metrics": {
     "real": {
       "precision": 1,
-      "recall": 0.688,
-      "tp": 11,
-      "fn": 5,
+      "recall": 1,
+      "tp": 14,
+      "fn": 0,
       "fp": 0,
       "tn": 7
     },
@@ -36,9 +36,9 @@
     "S5": {
       "real": {
         "precision": 1,
-        "recall": 0.667,
-        "tp": 8,
-        "fn": 4,
+        "recall": 1,
+        "tp": 11,
+        "fn": 0,
         "fp": 0,
         "tn": 1
       },
@@ -54,9 +54,9 @@
     "S4": {
       "real": {
         "precision": 1,
-        "recall": 0.5,
+        "recall": 1,
         "tp": 1,
-        "fn": 1,
+        "fn": 0,
         "fp": 0,
         "tn": 0
       },
@@ -286,5 +286,11 @@
       }
     }
   },
-  "uncoveredIds": []
+  "uncoveredIds": [],
+  "staleIds": [
+    "real-006",
+    "real-008"
+  ],
+  "falseNegatives": [],
+  "falsePositives": []
 }

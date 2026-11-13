@@ -33,8 +33,15 @@ const empty = () => ({ tp: 0, fn: 0, fp: 0, tn: 0 });
 const byRule = {};
 const totals = { real: empty(), synthetic: empty() };
 const uncovered = [];
+const stale = [];
+const falseNegatives = [];
+const falsePositives = [];
 for (const label of labels) {
   const group = label.synthetic ? 'synthetic' : 'real';
+  if (label.stale) {
+    stale.push(label);
+    continue;
+  }
   const scope = `${label.source}|${Number(label.viewport)}|${label.state}`;
   if (!scopes.has(scope)) {
     uncovered.push(label);
@@ -44,8 +51,8 @@ for (const label of labels) {
   const bucket = (byRule[label.rule] ??= { real: empty(), synthetic: empty() })[group];
   const target = totals[group];
   if (label.label) {
-    if (found) { bucket.tp++; target.tp++; } else { bucket.fn++; target.fn++; }
-  } else if (found) { bucket.fp++; target.fp++; } else { bucket.tn++; target.tn++; }
+    if (found) { bucket.tp++; target.tp++; } else { bucket.fn++; target.fn++; falseNegatives.push(label); }
+  } else if (found) { bucket.fp++; target.fp++; falsePositives.push(label); } else { bucket.tn++; target.tn++; }
 }
 
 const rate = (m) => ({
@@ -65,6 +72,9 @@ const report = {
   metrics: { real: rate(totals.real), synthetic: rate(totals.synthetic) },
   byRule: Object.fromEntries(Object.entries(byRule).map(([rule, v]) => [rule, { real: rate(v.real), synthetic: rate(v.synthetic) }])),
   uncoveredIds: uncovered.map((l) => l.id),
+  staleIds: stale.map((l) => l.id),
+  falseNegatives: falseNegatives.map((l) => `${l.id} ${l.source}@${l.viewport} ${l.state} ${l.rule} ${l.selector}`),
+  falsePositives: falsePositives.map((l) => `${l.id} ${l.source}@${l.viewport} ${l.state} ${l.rule} ${l.selector}`),
 };
 writeFileSync('datasets/EVAL.json', JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));

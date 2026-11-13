@@ -20,12 +20,13 @@
     "selector": "div.login-page > div.login-card > div.login-header > p"
   },
   "real-005": {
-    "type": "scan",
-    "note": "state measured; expected finding absent"
+    "type": "raw",
+    "file": "P2-_login.json",
+    "selector": "div.login-page > div.login-card > div.login-tabs > button.tab"
   },
   "real-006": {
-    "type": "scan",
-    "note": "state measured; expected finding absent"
+    "type": "stale",
+    "note": "stale: first product buttons are disabled/absent in the current logged snapshot"
   },
   "real-007": {
     "type": "raw",
@@ -33,8 +34,8 @@
     "selector": "header.el-header.navbar > div.navbar-content > div.logo > span"
   },
   "real-008": {
-    "type": "scan",
-    "note": "state measured; expected finding absent"
+    "type": "stale",
+    "note": "stale: status chip not present in the current logged snapshot"
   },
   "real-009": {
     "type": "raw",
@@ -87,12 +88,14 @@
     "selector": "div.el-select__wrapper.el-tooltip__trigger > div.el-select__selection > div.el-select__selected-item.el-select__placeholder > span"
   },
   "real-021": {
-    "type": "scan",
-    "note": "state measured; expected finding absent"
+    "type": "raw",
+    "file": "P3-logged.json",
+    "selector": "div.products > div.search-filter > button.el-button.el-button--warning > span"
   },
   "real-022": {
-    "type": "scan",
-    "note": "state measured; expected finding absent"
+    "type": "raw",
+    "file": "P3-logged.json",
+    "selector": "div.cart-page > div.cart-header > button.el-button.el-button--primary > span"
   },
   "real-106": {
     "type": "scan",

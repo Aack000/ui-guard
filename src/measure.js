@@ -194,15 +194,21 @@ export function measure() {
         if (el.getAttribute('aria-hidden') === 'true') return false;
         if (underTransform(el)) return false;
         if (inHorizontalScroller(el)) return false;
+        // Table headers are clipped to the horizontal scroll position of the
+        // body on purpose (Element Plus / native table wrappers).
+        if (el.closest('table') || el.matches('table, thead, tbody, tr, th, td') || el.querySelector('table')) return false;
         if (el.textContent.trim().length === 0 && !el.querySelector(INTERACTIVE)) return false;
         const clip = clippingAncestor(el);
         if (!clip) return false;
         const cr = clip.getBoundingClientRect();
         return r.right > cr.right + EPS;
       })
-      .sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right)
+      .sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right);
+    // Keep only the outermost offender per clipped region (nav + its items).
+    const uniqueMasked = masked
+      .filter((el) => !masked.some((other) => other !== el && other.contains(el)))
       .slice(0, 5);
-    for (const el of masked) {
+    for (const el of uniqueMasked) {
       report('H1c', 'error', el, `content clipped horizontally by overflow-x: hidden (${Math.round(el.getBoundingClientRect().right)}px > viewport ${vw}px)`);
     }
   }
@@ -474,13 +480,32 @@ export function measure() {
   }
   for (const group of byParent.values()) {
     if (group.length < 2) continue;
-    const centers = group.map((el) => {
+    // Split wrapped rows: a button on the next line is not a misaligned sibling.
+    const rows = [];
+    for (const el of group) {
       const r = el.getBoundingClientRect();
-      return r.top + r.height / 2;
-    });
-    const spread = Math.max(...centers) - Math.min(...centers);
-    if (spread > 6 && spread < 100) {
-      report('S2', 'warn', group[0], `${group.length} sibling buttons on one row, center spread ${Math.round(spread)}px`);
+      const row = rows.find((x) => {
+        const overlap = Math.min(r.bottom, x.bottom) - Math.max(r.top, x.top);
+        return overlap > Math.min(r.height, x.height) * 0.5;
+      });
+      if (row) {
+        row.items.push(el);
+        row.top = Math.min(row.top, r.top);
+        row.bottom = Math.max(row.bottom, r.bottom);
+      } else {
+        rows.push({ top: r.top, bottom: r.bottom, items: [el] });
+      }
+    }
+    for (const row of rows) {
+      if (row.items.length < 2) continue;
+      const centers = row.items.map((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top + r.height / 2;
+      });
+      const spread = Math.max(...centers) - Math.min(...centers);
+      if (spread > 6 && spread < 100) {
+        report('S2', 'warn', row.items[0], `${row.items.length} sibling buttons on one row, center spread ${Math.round(spread)}px`);
+      }
     }
   }
 

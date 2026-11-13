@@ -14,3 +14,10 @@
 {"id":"real-103","source":"P3","viewport":1280,"state":"click:products","rule":"S5","selector":".products > h2","label":false,"note":"gradient masked by card layer; computed color not visible"}
 {"id":"real-104","source":"P5","viewport":1440,"state":"anchor:manage","rule":"H4","selector":".copy","label":false,"note":"covered by sticky header; scroll-reachable"}
 {"id":"real-105","source":"P1","viewport":375,"state":"click:register","rule":"H5","selector":".login-register","label":false,"note":"background control behind modal"}
+{"id":"real-018","source":"P3","viewport":375,"state":"baseline:logged","rule":"H1c","selector":"nav.nav-links","label":true,"note":"621px nav clipped by hidden overflow at 375; no horizontal scroller"}
+{"id":"real-019","source":"P3","viewport":375,"state":"baseline:logged","rule":"S6","selector":".product-info > h3","label":true,"note":"ellipsis without title (x2)"}
+{"id":"real-020","source":"P3","viewport":375,"state":"baseline:logged","rule":"S5","selector":".el-select__placeholder > span","label":true,"note":"contrast 2.30:1"}
+{"id":"real-021","source":"P3","viewport":375,"state":"baseline:logged","rule":"S5","selector":".search-filter > .el-button--warning > span","label":true,"note":"contrast 2.07:1"}
+{"id":"real-022","source":"P3","viewport":375,"state":"baseline:logged","rule":"S5","selector":".cart-header > .el-button--primary > span","label":true,"note":"contrast 2.43:1"}
+{"id":"real-106","source":"P3","viewport":375,"state":"baseline:logged","rule":"H1c","selector":".el-table__header-wrapper","label":false,"note":"table header synchronized with horizontal body scroll"}
+{"id":"real-107","source":"P3","viewport":375,"state":"baseline:logged","rule":"S2","selector":".search-filter > .el-button--primary","label":false,"note":"buttons wrap to different rows; not a misaligned row"}

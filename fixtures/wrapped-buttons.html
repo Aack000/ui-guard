@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OK — wrapped buttons are not misaligned siblings</title>
+<style>
+  body { margin: 0; padding: 16px; font-family: system-ui, sans-serif; }
+  .wrap { width: 210px; display: flex; flex-wrap: wrap; gap: 8px; }
+  button { min-height: 32px; padding: 4px 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <button type="button">第一个按钮</button>
+  <button type="button">第二个按钮</button>
+  <button type="button">第三个按钮</button>
+</div>
+</body>
+</html>

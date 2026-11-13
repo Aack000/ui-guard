@@ -267,5 +267,13 @@
       "H1",
       "H1c"
     ]
+  },
+  "wrapped-buttons.html": {
+    "errorsAt": {
+      "375": []
+    },
+    "noWarns": [
+      "S2"
+    ]
   }
 }

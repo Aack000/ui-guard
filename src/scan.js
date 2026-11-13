@@ -22,11 +22,18 @@ export async function scan(url, {
   waitForStartupOverlay = true,
   perf = false,
   channel = process.env.UI_GUARD_CHANNEL,
+  signal = null,
 } = {}) {
+  if (signal?.aborted) throw abortError();
   const browser = await chromium.launch({ channel: channel || undefined });
+  // Cancellation (MCP notifications/cancelled) closes the browser so pending
+  // navigation/measure work rejects instead of running to completion.
+  const onAbort = () => { browser.close().catch(() => {}); };
+  signal?.addEventListener('abort', onAbort, { once: true });
   const results = [];
   try {
     for (const width of viewports) {
+      if (signal?.aborted) throw abortError();
       const page = await browser.newPage({ viewport: { width, height } });
       const states = [{ name: 'baseline' }, ...actions.map((a) => ({ name: `${a.type}:${a.selector}`, action: a }))];
       try {
@@ -35,6 +42,7 @@ export async function scan(url, {
         await page.evaluate(() => document.fonts.ready);
         await page.waitForTimeout(settleMs);
         for (const state of states) {
+          if (signal?.aborted) throw abortError();
           try {
             if (state.action) {
               // Each interactive state starts from a clean page: earlier actions
@@ -77,9 +85,16 @@ export async function scan(url, {
       }
     }
   } finally {
+    signal?.removeEventListener('abort', onAbort);
     await browser.close();
   }
   return results;
+}
+
+function abortError() {
+  const err = new Error('scan aborted');
+  err.name = 'AbortError';
+  return err;
 }
 
 /** 全屏启动遮罩（开场动画）消失后再测量；普通页立即返回。 */

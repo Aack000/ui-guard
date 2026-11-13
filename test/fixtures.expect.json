@@ -91,5 +91,8 @@
   },
   "drawer-closed.html": {
     "errorsAt": { "375": [] }
+  },
+  "persistent-modal.html": {
+    "errorsAt": { "375": ["H4"] }
   }
 }

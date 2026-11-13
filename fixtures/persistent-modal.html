@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Broken — a closed aria-modal drawer must not hide background checks</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; }
+  #covered { position: absolute; top: 20px; left: 20px; width: 120px; height: 36px; }
+  .cover { position: absolute; top: 16px; left: 16px; width: 140px; height: 44px; background: #dddddd; }
+  aside {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 240px;
+    height: 100vh;
+    background: #ffffff;
+    transform: translateX(100%);
+  }
+  main { height: 1200px; padding: 16px; }
+</style>
+</head>
+<body>
+<button id="covered">背景按钮被覆盖</button>
+<div class="cover" aria-hidden="true"></div>
+<aside role="dialog" aria-modal="true" data-state="closed">
+  <p>常驻关闭抽屉</p>
+  <button>关闭</button>
+</aside>
+<main></main>
+</body>
+</html>

@@ -246,7 +246,13 @@ export function measure() {
 
   // ---- H4: interactive element not clickable ----
   // If a modal dialog is open, background inertness is intentional: only check inside it.
-  const modal = all.find((el) => el.getAttribute('aria-modal') === 'true');
+  const modal = all.find((el) => {
+    if (el.getAttribute('aria-modal') !== 'true') return false;
+    // A persistent drawer hidden by transform is not an active modal: if it
+    // were, H4/H5/S3 would only inspect that off-screen subtree.
+    const r = el.getBoundingClientRect();
+    return r.right > 0 && r.left < vw && r.bottom > 0 && r.top < vh;
+  });
   // Disabled controls are not expected to be clickable: coverage checks only
   // apply to enabled controls (a disabled "sold out" button may sit under a
   // badge or be clipped without being a defect).

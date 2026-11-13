@@ -86,7 +86,7 @@ function summarize(results) {
   return { text: lines.join('\n'), errors, warns };
 }
 
-async function callTool(name, args) {
+async function callTool(name, args, signal = null) {
   const tool = TOOLS.find((t) => t.name === name);
   if (!tool) {
     const err = new Error(`unknown tool: ${name}`);
@@ -100,12 +100,18 @@ async function callTool(name, args) {
       throw err;
     }
   }
+  if (signal?.aborted) {
+    const err = new Error('scan aborted');
+    err.name = 'AbortError';
+    throw err;
+  }
 
   const results = await scan(toUrl(args.url), {
     viewports: Array.isArray(args.viewports) && args.viewports.length ? args.viewports : undefined,
     actions: args.actions ?? [],
     perf: args.perf === true,
     waitForStartupOverlay: args.waitForStartupOverlay !== false,
+    signal,
   });
   const reportPath = join(tmpdir(), `ui-guard-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.json`);
   writeFileSync(reportPath, JSON.stringify({ url: args.url, results }, null, 2));
@@ -140,6 +146,7 @@ export function serveMcp() {
   const send = (obj) => process.stdout.write(JSON.stringify({ jsonrpc: '2.0', ...obj }) + '\n');
   const rl = createInterface({ input: process.stdin });
   // Serial queue: concurrent tools/call must not spawn unbounded Chromium runs.
+  const activeCalls = new Map();
   let queue = Promise.resolve();
   const enqueue = (task) => {
     const next = queue.then(task, task);
@@ -160,19 +167,29 @@ export function serveMcp() {
     try {
       if (method === 'initialize') {
         send({ id, result: { protocolVersion: '2024-11-05', capabilities: { tools: {} }, serverInfo: { name: 'ui-guard', version: '0.0.2' } } });
-      } else if (method === 'notifications/initialized' || method === 'notifications/cancelled') {
+      } else if (method === 'notifications/initialized') {
         // no response required
+      } else if (method === 'notifications/cancelled') {
+        const target = activeCalls.get(params?.requestId);
+        if (target) target.abort();
       } else if (method === 'ping') {
         send({ id, result: {} });
       } else if (method === 'tools/list') {
         send({ id, result: { tools: TOOLS } });
       } else if (method === 'tools/call') {
-        const text = await enqueue(() => callTool(params.name, params.arguments ?? {}));
-        send({ id, result: { content: [{ type: 'text', text }] } });
+        const controller = new AbortController();
+        activeCalls.set(id, controller);
+        try {
+          const text = await enqueue(() => callTool(params.name, params.arguments ?? {}, controller.signal));
+          send({ id, result: { content: [{ type: 'text', text }] } });
+        } finally {
+          activeCalls.delete(id);
+        }
       } else if (id !== undefined) {
         send({ id, error: { code: -32601, message: `method not found: ${method}` } });
       }
     } catch (err) {
+      if (err.name === 'AbortError') return;
       if (id !== undefined) {
         if (err.code === 'INVALID_PARAMS') {
           send({ id, error: { code: -32602, message: err.message } });

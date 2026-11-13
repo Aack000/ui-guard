@@ -1,8 +1,16 @@
 # ui-guard 可行性验证报告
 
-日期：2026-11-13 · 版本：v0.0.27（demo） · 结论：**可行，建议进入下一阶段**
+日期：2026-11-13 · 版本：v0.0.28（demo） · 结论：**可行，建议进入下一阶段**
 
-## 最新结果（2026-11-13，v0.0.27）
+## 最新结果（2026-11-13，v0.0.28）
+
+MCP 取消 + R9 常驻模态：
+
+- **MCP 取消**：`scan` 支持 `AbortSignal`，取消时关闭浏览器中止进行中的扫描；`notifications/cancelled` 按 requestId abort；被取消的调用不再回写响应。实测 `scanResponded=false`、`pingResponded=true`。
+- **R9 修复**：只有与视口相交的 `aria-modal` 才算活动模态；关闭态抽屉（transform 移出）不再让 H4/H5/S3 只检查它内部。新增 `persistent-modal.html`（背景覆盖按钮仍报 H4），回归 **45/45**。
+- MCP **6/6**。
+
+## 上一阶段结果（2026-11-13，v0.0.27）
 
 闭环收尾：
 
